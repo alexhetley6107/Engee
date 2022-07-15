@@ -1,0 +1,32 @@
+.full {
+	width: 100%;
+	// align-self: flex-start;
+	font-size: 32px;
+	padding: 0 5px;
+
+	p {
+		color: $blue;
+		transition: all 0.3s;
+		cursor: pointer;
+	}
+	.full_head {
+		margin-top: 40px;
+		margin-bottom: 12px;
+		display: flex;
+		justify-content: space-between;
+		span {
+			color: $blue;
+		}
+		p:hover {
+			color: white;
+		}
+	}
+	.full_btns {
+		font-size: 39px;
+
+		display: flex;
+		&:first-child p {
+			margin-right: 20px;
+		}
+	}
+}

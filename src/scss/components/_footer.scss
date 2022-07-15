@@ -1,0 +1,16 @@
+footer {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px;
+	* {
+		color: white;
+	}
+
+	p {
+		margin-right: 20px;
+	}
+	span {
+		color: $blue;
+	}
+}

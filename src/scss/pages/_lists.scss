@@ -1,0 +1,37 @@
+.lists {
+	width: 100%;
+
+	&_head {
+		padding: 0 5px;
+		margin-top: 20px;
+		margin-bottom: 12px;
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+
+		.lists_owner {
+			font-size: 36px;
+			span {
+				color: $blue;
+			}
+		}
+
+		.addBtn {
+			color: $blue;
+			cursor: pointer;
+			font-size: 50px;
+			transition: all 0.3s;
+			&:hover {
+				color: white;
+			}
+		}
+	}
+	&_items {
+		width: 100%;
+
+		display: flex;
+		flex-wrap: wrap;
+		// justify-content: space-between;
+	}
+}

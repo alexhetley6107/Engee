@@ -1,0 +1,24 @@
+.pair {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #fff;
+	padding: 15px;
+	margin: 10px 0;
+	border-radius: 20px;
+
+	&_words {
+		color: black;
+		margin-top: -7px;
+	}
+	&_btns {
+		display: flex;
+		// margin-bottom: -4px;
+		&:last-child p {
+			margin-left: 10px;
+		}
+	}
+	p:hover {
+		color: black;
+	}
+}
