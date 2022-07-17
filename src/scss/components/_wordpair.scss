@@ -14,7 +14,7 @@
 	&_btns {
 		display: flex;
 		// margin-bottom: -4px;
-		&:last-child p {
+		& p:last-child {
 			margin-left: 10px;
 		}
 	}

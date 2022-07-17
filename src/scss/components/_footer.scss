@@ -13,4 +13,7 @@ footer {
 	span {
 		color: $blue;
 	}
+	@media (max-width: 350px) {
+		flex-direction: column;
+	}
 }

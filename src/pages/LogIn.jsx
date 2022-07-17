@@ -16,7 +16,7 @@ function LogIn({ logIn }) {
 			<div className='pass-input input'>
 				<input type='password' placeholder='password' />
 			</div>
-			<div className='btn' onClick={handleLogin}>
+			<div className='btn onWhite' onClick={handleLogin}>
 				Log in
 			</div>
 			<p>

@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { BsFillPlusCircleFill as Plus, BsFillArrowLeftCircleFill as Arrow } from 'react-icons/bs';
 
-import { WordPair } from '../components';
+import { AddWordPopup, WordPair } from '../components';
 
 function FullList() {
+	const [isAdd, setAdd] = useState(false);
+
 	const navigate = useNavigate();
 
 	const openListsPage = () => {
@@ -20,11 +22,11 @@ function FullList() {
 					<p onClick={openListsPage}>
 						<Arrow />
 					</p>
-					<p>
+					<p onClick={() => setAdd(true)}>
 						<Plus />
 					</p>
 				</div>
-				<div>
+				<div className='full_info'>
 					Numbers : <span>56</span> words
 				</div>
 			</div>
@@ -33,6 +35,8 @@ function FullList() {
 					<WordPair />
 				))}
 			</div>
+
+			{isAdd && <AddWordPopup close={() => setAdd(false)}>Add new pair of words</AddWordPopup>}
 		</div>
 	);
 }

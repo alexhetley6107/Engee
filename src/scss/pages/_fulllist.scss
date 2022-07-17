@@ -1,6 +1,5 @@
 .full {
 	width: 100%;
-	// align-self: flex-start;
 	font-size: 32px;
 	padding: 0 5px;
 
@@ -8,6 +7,7 @@
 		color: $blue;
 		transition: all 0.3s;
 		cursor: pointer;
+		font-size: 32px;
 	}
 	.full_head {
 		margin-top: 40px;
@@ -17,8 +17,20 @@
 		span {
 			color: $blue;
 		}
-		p:hover {
-			color: white;
+		p {
+			font-size: 46px;
+			&:hover {
+				color: white;
+			}
+		}
+
+		@media (max-width: 570px) {
+			flex-direction: column;
+		}
+	}
+	&_info {
+		@media (max-width: 500px) {
+			font-size: 24px;
 		}
 	}
 	.full_btns {
@@ -27,6 +39,9 @@
 		display: flex;
 		&:first-child p {
 			margin-right: 20px;
+		}
+		@media (max-width: 570px) {
+			justify-content: space-between;
 		}
 	}
 }

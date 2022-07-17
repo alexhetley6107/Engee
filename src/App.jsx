@@ -8,9 +8,9 @@ import { FullList, Intro } from './pages';
 import { LogIn } from './pages';
 import { SignIn } from './pages';
 import { Greet } from './pages';
-import { Learn } from './pages';
-import { Tests } from './pages';
-import { Lists } from './pages';
+import { LearnPage } from './pages';
+import { TestsPage } from './pages';
+import { ListsPage } from './pages';
 
 function App() {
 	const [isAuth, setAuth] = useState(false);
@@ -24,9 +24,9 @@ function App() {
 						<Route path='/' element={isAuth ? <Greet /> : <Intro />} />
 						<Route path='/signin' element={<SignIn logIn={() => setAuth(true)} />} />
 						<Route path='/login' element={<LogIn logIn={() => setAuth(true)} />} />
-						<Route path='/learn' element={<Learn />} />
-						<Route path='/tests' element={<Tests />} />
-						<Route path='/lists' element={<Lists />} />
+						<Route path='/learn' element={<LearnPage />} />
+						<Route path='/tests' element={<TestsPage />} />
+						<Route path='/lists' element={<ListsPage />} />
 						<Route path='/lists/full' element={<FullList />} />
 					</Routes>
 				</div>

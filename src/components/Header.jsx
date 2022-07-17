@@ -1,46 +1,36 @@
-import React from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Nav } from './index';
 
 function Header({ isAuth, logout }) {
-	const navigate = useNavigate();
+	const [isOpen, setOpen] = useState(false);
 
-	const handleLogin = () => {
-		logout();
-		navigate('/');
-	};
+	const toggle = () => setOpen(!isOpen);
 
 	return (
 		<header className='header'>
 			<Link to='/'>
-				<h2 className='logo'>ENGEE</h2>
+				<h2 className='logo' onClick={() => setOpen(false)}>
+					ENGEE
+				</h2>
 			</Link>
-			<nav className='nav'>
-				{isAuth ? (
-					<>
-						<NavLink to='/learn' className={({ isActive }) => `${isActive ? 'active' : ''}`}>
-							<p className='tab'>Learn</p>
-						</NavLink>
-						<NavLink to='/tests' className={({ isActive }) => `${isActive ? 'active' : ''}`}>
-							<p className='tab'>Tests</p>
-						</NavLink>
-						<NavLink to='/lists' className={({ isActive }) => `${isActive ? 'active' : ''}`}>
-							<p className='tab'>Lists</p>
-						</NavLink>
-						<p className='tab logout' onClick={handleLogin}>
-							Logout
-						</p>
-					</>
-				) : (
-					<>
-						<Link to='/signin'>
-							<p className='signIn'>Sign In</p>
-						</Link>
-						<Link to='/login'>
-							<p className='logIn'>Log In</p>
-						</Link>
-					</>
-				)}
-			</nav>
+			{isAuth ? (
+				<>
+					<div className='burger' onClick={toggle}>
+						<div className={isOpen ? 'burger_line active' : 'burger_line'}></div>
+					</div>
+					<Nav logout={logout} isOpen={isOpen} close={() => setOpen(false)} />
+				</>
+			) : (
+				<div className='auth'>
+					<Link to='/signin'>
+						<p className='signIn'>Sign In</p>
+					</Link>
+					<Link to='/login'>
+						<p className='logIn onBlack'>Log In</p>
+					</Link>
+				</div>
+			)}
 		</header>
 	);
 }

@@ -8,12 +8,12 @@ function IconList() {
 		<div className={isOn ? 'icon ' : 'icon unactive'} onClick={() => setOn(!isOn)}>
 			<div className='icon_wrap'>
 				<div className='icon_desc'>
-					<div className='icon_name'>Numberqqqqqssssssss</div>
+					<div className='icon_name'>Numberssss</div>
 					<div className='icon_words'>
 						<span>30</span> words
 					</div>
 				</div>
-				<p>{isOn ? <On /> : <Off />}</p>
+				<p className={isOn ? '' : 'black'}>{isOn ? <On /> : <Off />}</p>
 			</div>
 		</div>
 	);

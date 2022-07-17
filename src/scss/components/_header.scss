@@ -3,26 +3,47 @@
 	align-items: center;
 	justify-content: space-between;
 	padding: 20px 5px;
+	@media (max-width: 370px) {
+		// flex-direction: column;
+	}
 
 	.logo {
 		color: white;
 		letter-spacing: 3px;
 		font-weight: bold;
 		font-size: 35px;
+		@media (max-width: 370px) {
+			font-size: 25px;
+		}
 	}
-	.nav {
+	.auth {
 		display: flex;
 		* {
 			color: white;
 			text-transform: uppercase;
 		}
+
 		.logIn {
 			background-color: $blue;
+			color: white;
+
+			@media (min-width: 800px) {
+				&:hover {
+					background-color: white;
+					color: black;
+				}
+			}
 		}
 		.signIn {
 			background-color: white;
 			margin-right: 15px;
 			color: black;
+			@media (min-width: 800px) {
+				&:hover {
+					background-color: $blue;
+					color: white;
+				}
+			}
 		}
 		.logIn,
 		.signIn {
@@ -30,10 +51,22 @@
 			padding-bottom: 7px;
 			border-radius: 20px;
 			cursor: pointer;
-			color: black;
 			font-size: 18px;
 			font-weight: 500;
+			transition: all 0.3s;
+			@media (max-width: 370px) {
+				font-size: 14px;
+			}
 		}
+	}
+
+	.nav {
+		display: flex;
+		* {
+			color: white;
+			text-transform: uppercase;
+		}
+
 		.tab {
 			margin: 5px 20px;
 			font-size: 18px;
@@ -41,8 +74,8 @@
 			letter-spacing: 1px;
 			font-weight: 500;
 			padding: 0 10px;
-			border-radius: 15px;
 			padding-bottom: 1px;
+			background-color: $black;
 		}
 		& .active .tab {
 			color: $blue;
@@ -51,8 +84,95 @@
 			margin-right: 0;
 			padding-right: 0;
 		}
-		@media (max-width: 600px) {
-			display: none;
+		&.hide {
+			display: flex;
 		}
+		@media (max-width: 600px) {
+			flex-direction: column;
+			position: fixed;
+			z-index: 100;
+			top: 80px;
+			right: 0;
+			background-color: rgba(0, 0, 0, 0.7);
+			width: 100vw;
+			height: 100vh;
+
+			&.hide {
+				display: none;
+			}
+
+			p.tab {
+				padding: 20px;
+				font-size: 38px;
+				margin: 0;
+				text-align: right;
+			}
+		}
+	}
+}
+.burger {
+	display: none;
+	cursor: pointer;
+	// background-color: gray;
+	width: 45px;
+	height: 36px;
+	align-items: center;
+
+	&_line {
+		background-color: #fff;
+		width: 45px;
+		height: 2px;
+		position: relative;
+		transition: all 0.5s;
+
+		&::before {
+			content: '';
+			position: absolute;
+			// left: 0;
+			top: -17px;
+			background-color: #fff;
+			width: 45px;
+			height: 2px;
+			transition: all 0.5s;
+		}
+		&::after {
+			content: '';
+			// left: 0;
+			top: 17px;
+			position: absolute;
+			background-color: #fff;
+			width: 45px;
+			height: 2px;
+			transition: all 0.5s;
+		}
+	}
+	&_line.active {
+		background-color: $black;
+		&::before {
+			content: '';
+			position: absolute;
+			top: 0px;
+			left: -5px;
+
+			background-color: #fff;
+			width: 50px;
+			height: 2px;
+			transform: rotate(45deg);
+		}
+		&::after {
+			content: '';
+			top: 0px;
+			left: -5px;
+
+			position: absolute;
+			background-color: #fff;
+			width: 50px;
+			height: 2px;
+			transform: rotate(-45deg);
+		}
+	}
+
+	@media (max-width: 600px) {
+		display: flex;
 	}
 }

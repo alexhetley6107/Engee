@@ -1,6 +1,6 @@
 .listItem {
 	padding: 5px;
-	flex: 0 1 33.3%;
+	flex: 1 1 auto /* 33.3% */;
 	transition: all 0.3s;
 
 	&_wrap {
@@ -9,7 +9,10 @@
 		padding: 5px 15px;
 		border-radius: 25px;
 		font-size: 28px;
-		cursor: pointer;
+		// cursor: pointer;
+
+		display: flex;
+		flex-direction: column;
 	}
 	span,
 	b,
@@ -20,6 +23,7 @@
 		margin-bottom: -5px;
 		margin-left: 5px;
 		transition: all 0.3s;
+		cursor: pointer;
 
 		&:hover {
 			color: black;
@@ -30,34 +34,33 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: start;
-
-		margin-bottom: 20px;
 	}
 	&_desc {
 		font-weight: 500;
 	}
-	&_manage {
+	&_bottom {
 		display: flex;
 
 		justify-content: end;
 	}
 
-	&_add {
-		font-size: 38px;
+	&_view {
+		font-size: 40px;
+		line-height: 20px;
+		// margin-bottom: -50px;
 	}
 	&_name {
 		display: flex;
 		align-items: center;
 	}
-	@media (min-width: 800px) {
-		&:hover {
-			transform: translateY(-6px);
-		}
+	&_name div {
+		overflow-x: hidden;
 	}
-	@media (max-width: 800px) {
+
+	/* @media (max-width: 800px) {
 		flex: 0 1 50%;
 	}
 	@media (max-width: 590px) {
 		flex: 0 1 100%;
-	}
+	} */
 }

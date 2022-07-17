@@ -8,7 +8,7 @@ function LangMode() {
 	const [active, setActive] = useState(false);
 
 	return (
-		<div className={`langMode  ${active ? 'active' : ''}`} onClick={() => setActive(!active)}>
+		<div className={`langMode ${active ? 'active' : ''}`} onClick={() => setActive(!active)}>
 			<p>EN </p>
 			<p className='arrow'>{active ? <Left /> : <Right />}</p>
 			<p> RU</p>

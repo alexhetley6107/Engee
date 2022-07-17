@@ -11,7 +11,7 @@ function Greet() {
 			</h3>
 			<p>Try to remember and then test yourself. Good luck!</p>
 			<Link to='/learn'>
-				<div className='intro_btn'>get started</div>
+				<div className='intro_btn onBlack'>get started</div>
 			</Link>
 		</div>
 	);
