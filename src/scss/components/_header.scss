@@ -84,9 +84,7 @@
 			margin-right: 0;
 			padding-right: 0;
 		}
-		&.hide {
-			display: flex;
-		}
+
 		@media (max-width: 600px) {
 			flex-direction: column;
 			position: fixed;

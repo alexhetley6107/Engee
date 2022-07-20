@@ -10,7 +10,7 @@
 		font-size: 32px;
 	}
 	.full_head {
-		margin-top: 40px;
+		margin-top: 15px;
 		margin-bottom: 12px;
 		display: flex;
 		justify-content: space-between;
@@ -42,6 +42,15 @@
 		}
 		@media (max-width: 570px) {
 			justify-content: space-between;
+			&:first-child p {
+				margin: 0;
+			}
 		}
+	}
+	&_empty {
+		text-align: center;
+	}
+	&_words {
+		padding-bottom: 40px;
 	}
 }

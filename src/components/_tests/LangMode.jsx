@@ -3,14 +3,23 @@ import {
 	BsFillArrowRightCircleFill as Right,
 	BsFillArrowLeftCircleFill as Left,
 } from 'react-icons/bs';
+import { useSelector, useDispatch } from 'react-redux';
+
+import { selectMode, toggleMode } from '../../redux/slices/tests';
 
 function LangMode() {
-	const [active, setActive] = useState(false);
+	const origin = useSelector(selectMode);
+
+	const dispatch = useDispatch();
+
+	const onClickMode = () => {
+		dispatch(toggleMode());
+	};
 
 	return (
-		<div className={`langMode ${active ? 'active' : ''}`} onClick={() => setActive(!active)}>
+		<div className={`langMode ${origin ? '' : 'active'}`} onClick={onClickMode}>
 			<p>EN </p>
-			<p className='arrow'>{active ? <Left /> : <Right />}</p>
+			<p className='arrow'>{origin ? <Right /> : <Left />}</p>
 			<p> RU</p>
 		</div>
 	);

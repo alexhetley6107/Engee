@@ -134,10 +134,16 @@
 
 .btn {
 	background-color: $blue;
+	color: white;
 	text-transform: uppercase;
 	border-radius: 35px;
 	cursor: pointer;
 	transition: all 0.3s;
+	border: none;
+	&:disabled {
+		opacity: 0.3;
+		cursor: default;
+	}
 }
 .onBlack {
 	transition: all 0.3s;
@@ -148,6 +154,12 @@
 			background-color: white;
 		}
 	}
+	&:disabled {
+		&:hover {
+			color: white;
+			background-color: $blue;
+		}
+	}
 }
 .onWhite {
 	transition: all 0.3s;
@@ -156,6 +168,53 @@
 		&:hover {
 			color: white;
 			background-color: black;
+		}
+	}
+}
+
+.topBtn {
+	position: fixed;
+	width: 100%;
+	bottom: 50px;
+
+	display: flex;
+	align-items: center;
+	justify-content: end;
+
+	&_cont {
+		border-radius: 70px;
+		cursor: pointer;
+		background-color: $blue;
+		color: black;
+		transition: all 0.3s;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		margin-right: 100px;
+	}
+
+	&_wrap {
+		transition: all 0.3s;
+
+		font-size: 55px;
+		width: 65px;
+		height: 65px;
+		text-align: center;
+	}
+
+	@media (min-width: 800px) {
+		p:hover {
+			background-color: #fff;
+		}
+	}
+
+	@media (max-width: 1500px) {
+		justify-content: center;
+
+		&_cont {
+			margin: 0;
 		}
 	}
 }

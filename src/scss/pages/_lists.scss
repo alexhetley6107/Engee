@@ -3,7 +3,7 @@
 
 	&_head {
 		padding: 0 5px;
-		margin-top: 20px;
+		margin-top: 15px;
 		margin-bottom: 12px;
 		width: 100%;
 		display: flex;
@@ -35,5 +35,11 @@
 
 		display: flex;
 		flex-wrap: wrap;
+	}
+
+	&_no {
+		display: flex;
+		width: 100%;
+		justify-content: center;
 	}
 }

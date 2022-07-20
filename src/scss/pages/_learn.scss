@@ -38,6 +38,11 @@
 		padding: 5px 20px;
 		padding-bottom: 9px;
 		font-size: 22px;
+		border: none;
+		color: white;
+	}
+	&_allBtn:disabled {
+		opacity: 0.3;
 	}
 
 	&_desc {
@@ -45,12 +50,27 @@
 	}
 }
 
-.learn_startBtn {
+.learn_startBtn,
+.learn_remBtn {
 	font-weight: 400;
-	// margin-top: 30px;
+	color: white;
+
 	padding: 5px 51px;
 	padding-bottom: 9px;
 	font-size: 42px;
+	border: none;
+
+	&:disabled {
+		opacity: 0.3;
+	}
+}
+
+.learn_remBtn {
+	margin-top: 40px;
+
+	@media (max-width: 360px) {
+		font-size: 32px;
+	}
 }
 .learning {
 	position: relative;
@@ -63,7 +83,7 @@
 	&_close {
 		position: absolute;
 		right: 0;
-		top: -200px;
+		top: -90px;
 
 		font-size: 12px;
 		@media (min-width: 800px) {
@@ -76,10 +96,9 @@
 	p {
 		color: $blue;
 		cursor: pointer;
-		margin-top: 10px;
+		margin: 20px 10px 0 10px;
 		text-align: center;
 		font-size: 56px;
-		margin-bottom: 50px;
 
 		@media (min-width: 800px) {
 			&:hover {
@@ -102,6 +121,12 @@
 	}
 	&_word {
 		font-size: 46px;
-		margin: 0px 20px;
+		margin: 0px 10px;
+		@media (max-width: 600px) {
+			font-size: 36px;
+			display: flex;
+			align-items: center;
+			flex-wrap: wrap;
+		}
 	}
 }

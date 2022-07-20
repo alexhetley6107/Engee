@@ -1,7 +1,8 @@
 .listItem {
 	padding: 5px;
-	flex: 1 1 auto /* 33.3% */;
+	flex: 0 1 25%;
 	transition: all 0.3s;
+	// cursor: pointer;
 
 	&_wrap {
 		background-color: #fff;
@@ -34,33 +35,39 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: start;
+		cursor: pointer;
 	}
-	&_desc {
-		font-weight: 500;
+	&_name {
+		max-width: 175px;
+		max-height: 40px;
+		overflow: hidden;
+	}
+	&_manage {
+		display: flex;
+	}
+
+	&_length {
+		cursor: pointer;
 	}
 	&_bottom {
 		display: flex;
 
 		justify-content: end;
+		cursor: pointer;
 	}
-
 	&_view {
 		font-size: 40px;
 		line-height: 20px;
-		// margin-bottom: -50px;
-	}
-	&_name {
-		display: flex;
-		align-items: center;
-	}
-	&_name div {
-		overflow-x: hidden;
 	}
 
-	/* @media (max-width: 800px) {
+	@media (max-width: 1100px) {
+		flex: 0 1 33.33%;
+	}
+
+	@media (max-width: 800px) {
 		flex: 0 1 50%;
 	}
 	@media (max-width: 590px) {
 		flex: 0 1 100%;
-	} */
+	}
 }

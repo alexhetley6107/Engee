@@ -2,10 +2,10 @@
 	padding: 5px;
 	flex: 0 1 20%;
 	transition: all 0.4s;
+
 	&_wrap {
 		background-color: #fff;
 		padding: 10px 20px;
-
 		color: black;
 		border-radius: 25px;
 		display: flex;
@@ -43,6 +43,7 @@
 	}
 	&_name {
 		font-size: 24px;
+		max-width: 145px;
 		overflow: hidden;
 	}
 	&_words {
