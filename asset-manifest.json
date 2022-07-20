@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Engee/static/css/main.de3fa694.css",
+    "main.js": "/Engee/static/js/main.4b3caad1.js",
+    "index.html": "/Engee/index.html",
+    "main.de3fa694.css.map": "/Engee/static/css/main.de3fa694.css.map",
+    "main.4b3caad1.js.map": "/Engee/static/js/main.4b3caad1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.de3fa694.css",
+    "static/js/main.4b3caad1.js"
+  ]
+}
