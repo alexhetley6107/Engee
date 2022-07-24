@@ -17,7 +17,7 @@ function FullList() {
 	const dispatch = useDispatch();
 
 	const backToLists = () => {
-		navigate('/Engee/lists');
+		navigate('/lists');
 	};
 
 	const handleAddWord = (eng, rus) => {

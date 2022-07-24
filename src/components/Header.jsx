@@ -19,7 +19,7 @@ function Header({ isAuth, logout }) {
 
 	return (
 		<header className='header'>
-			<Link to='/Engee'>
+			<Link to='/'>
 				<h2 className='logo' onClick={() => setOpen(false)}>
 					ENGEE
 				</h2>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -63,7 +63,7 @@ function Testing({ stop }) {
 	const onClickEnd = () => {
 		setEnd(false);
 		stop();
-		navigate('/Engee/lists');
+		navigate('/lists');
 	};
 	const makeHint = () => {
 		const word = origin ? quest.rus : quest.eng;
@@ -85,6 +85,10 @@ function Testing({ stop }) {
 			checkWord();
 		}
 	};
+
+	useEffect(() => {
+		input.current?.focus();
+	});
 
 	return (
 		<>

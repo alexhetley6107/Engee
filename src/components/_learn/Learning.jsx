@@ -36,7 +36,7 @@ function Learning({ stop }) {
 	const onClickEnd = () => {
 		setEnd(false);
 		stop();
-		navigate('/Engee/tests');
+		navigate('/tests');
 	};
 
 	function speak(text, english) {

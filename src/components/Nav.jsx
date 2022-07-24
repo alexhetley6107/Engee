@@ -15,13 +15,13 @@ function Nav({ logout, isOpen, close }) {
 	return (
 		<>
 			<nav className={isOpen ? 'nav' : 'nav hide'} onClick={close}>
-				<NavLink to='/Engee/learn' className={({ isActive }) => `${isActive ? 'active' : ''}`}>
+				<NavLink to='/learn' className={({ isActive }) => `${isActive ? 'active' : ''}`}>
 					<p className='tab'>Learn</p>
 				</NavLink>
-				<NavLink to='/Engee/tests' className={({ isActive }) => `${isActive ? 'active' : ''}`}>
+				<NavLink to='/tests' className={({ isActive }) => `${isActive ? 'active' : ''}`}>
 					<p className='tab'>Tests</p>
 				</NavLink>
-				<NavLink to='/Engee/lists' className={({ isActive }) => `${isActive ? 'active' : ''}`}>
+				<NavLink to='/lists' className={({ isActive }) => `${isActive ? 'active' : ''}`}>
 					<p className='tab'>Lists</p>
 				</NavLink>
 				{/* <p className='tab logout' onClick={() => setIsLogOut(true)}>

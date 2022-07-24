@@ -19,7 +19,7 @@ function ListItem({ item, lists }) {
 	const navigate = useNavigate();
 
 	const openFullList = () => {
-		navigate(`/Engee/lists/${name}`);
+		navigate(`/lists/${name}`);
 	};
 
 	const remove = () => {

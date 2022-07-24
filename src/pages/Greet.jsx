@@ -18,7 +18,7 @@ function Greet() {
 				Currently, you have <span>{lists.length}</span> lists with <span>{wordsAmount}</span> words
 			</h3>
 			<p>Try to remember and then test yourself. Good luck!</p>
-			<Link to='/Engee/learn'>
+			<Link to='/learn'>
 				<div className='intro_btn onBlack'>get started</div>
 			</Link>
 		</div>

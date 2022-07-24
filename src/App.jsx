@@ -29,11 +29,11 @@ function App() {
 				<Header />
 				<div className='content'>
 					<Routes>
-						<Route path='/Engee' element={<Greet />} />
-						<Route path='/Engee/learn' element={<LearnPage />} />
-						<Route path='/Engee/tests' element={<TestsPage />} />
-						<Route path='/Engee/lists' element={<ListsPage />} />
-						<Route path='/Engee/lists/:name' element={<FullList />} />
+						<Route path='/' element={<Greet />} />
+						<Route path='/learn' element={<LearnPage />} />
+						<Route path='/tests' element={<TestsPage />} />
+						<Route path='/lists' element={<ListsPage />} />
+						<Route path='/lists/:name' element={<FullList />} />
 					</Routes>
 				</div>
 
