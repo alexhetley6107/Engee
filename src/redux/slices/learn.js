@@ -1,15 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-const getLearnsFromLS = () => {
-	const data = localStorage.getItem('learnLists');
-	const lists = data ? JSON.parse(data) : [];
-
-	return lists;
-};
+import { getFromLS, saveToLS } from '../../utils/localStorage';
 
 const initialState = {
 	isLearning: false,
-	learnLists: getLearnsFromLS(),
+	learnLists: getFromLS('learnLists', []),
 	learnWords: [],
 	currentLearnWord: null,
 };
@@ -38,9 +32,13 @@ export const learnSlice = createSlice({
 			} else {
 				state.learnLists = state.learnLists.filter((l) => l !== list);
 			}
+
+			saveToLS('learnLists', state.learnLists);
 		},
 		chooseAllLearnLists(state, action) {
 			state.learnLists = action.payload;
+
+			saveToLS('learnLists', state.learnLists);
 		},
 		removeLearnWord(state, action) {
 			state.learnWords = state.learnWords.filter((word) => word.eng !== action.payload.eng);

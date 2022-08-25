@@ -67,7 +67,7 @@ function Testing({ stop }) {
 	};
 	const makeHint = () => {
 		const word = origin ? quest.rus : quest.eng;
-		const half = Math.floor(word.length / 2);
+		const half = Math.ceil(word.length / 2);
 		let hint = '';
 
 		for (let i = 0; i < word.length; i++) {

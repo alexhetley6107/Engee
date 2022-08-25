@@ -22,13 +22,6 @@ function ListsPage() {
 		dispatch(createList(list));
 	};
 
-	useEffect(() => {
-		setNoLists(lists.length === 0);
-
-		const json = JSON.stringify(lists);
-		localStorage.setItem('allLists', json);
-	}, [lists]);
-
 	return (
 		<>
 			<div className='lists'>

@@ -3,6 +3,8 @@
 	align-items: center;
 	justify-content: space-between;
 	padding: 20px 5px;
+
+	position: relative;
 	@media (max-width: 370px) {
 		// flex-direction: column;
 	}
@@ -66,7 +68,6 @@
 			color: white;
 			text-transform: uppercase;
 		}
-
 		.tab {
 			margin: 5px 20px;
 			font-size: 18px;
@@ -87,9 +88,9 @@
 
 		@media (max-width: 600px) {
 			flex-direction: column;
-			position: fixed;
+			position: absolute;
 			z-index: 100;
-			top: 80px;
+			top: 60px;
 			right: 0;
 			background-color: rgba(0, 0, 0, 0.7);
 			width: 100vw;

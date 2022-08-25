@@ -1,16 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-const getTestsFromLS = () => {
-	const data = localStorage.getItem('testLists');
-	const lists = data ? JSON.parse(data) : [];
-
-	return lists;
-};
+import { getFromLS, saveToLS } from '../../utils/localStorage';
 
 const initialState = {
 	isTesting: false,
 	originMode: true,
-	testLists: getTestsFromLS(),
+	testLists: getFromLS('testLists', []),
 	testWords: [],
 	questWord: null,
 };
@@ -36,12 +30,16 @@ export const testSlice = createSlice({
 			} else {
 				state.testLists = state.testLists.filter((l) => l !== list);
 			}
+
+			saveToLS('testLists', state.testLists);
 		},
 		toggleMode(state) {
 			state.originMode = !state.originMode;
 		},
 		chooseAllTestLists(state, action) {
 			state.testLists = action.payload;
+
+			saveToLS('testLists', state.testLists);
 		},
 		//remove word from test because user correctly translated the word
 		removeTestWord(state, action) {

@@ -1,15 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 import defaultLists from './../defaultLists';
-
-const getListsFromLS = () => {
-	const data = localStorage.getItem('allLists');
-	const lists = data ? JSON.parse(data) : defaultLists;
-
-	return lists;
-};
+import { getFromLS, saveToLS } from '../../utils/localStorage';
 
 const initialState = {
-	lists: getListsFromLS(),
+	lists: getFromLS('allLists', defaultLists),
 };
 
 export const listSlice = createSlice({
@@ -18,17 +12,23 @@ export const listSlice = createSlice({
 	reducers: {
 		createList(state, action) {
 			state.lists = [action.payload, ...state.lists];
+
+			saveToLS('allLists', state.lists);
 		},
 		renameList(state, action) {
 			state.lists.map((list) =>
 				list.name === action.payload.oldName ? (list.name = action.payload.newName) : list,
 			);
+
+			saveToLS('allLists', state.lists);
 		},
 		removeList(state, action) {
 			state.lists = state.lists.filter((list) => list.name !== action.payload);
+			saveToLS('allLists', state.lists);
 		},
 		getDefault(state) {
 			state.lists = defaultLists;
+			saveToLS('allLists', state.lists);
 		},
 		addWord(state, action) {
 			const obj = action.payload;
@@ -37,6 +37,8 @@ export const listSlice = createSlice({
 			state.lists = state.lists.map((list) =>
 				list.name === obj.listName ? { ...list, words: [obj.wordPair, ...list.words] } : list,
 			);
+
+			saveToLS('allLists', state.lists);
 		},
 		editWord(state, action) {
 			const { listName, engOld, engNew, rusNew } = action.payload;
@@ -51,6 +53,8 @@ export const listSlice = createSlice({
 					  }
 					: list,
 			);
+
+			saveToLS('allLists', state.lists);
 		},
 		deleteWord(state, action) {
 			const obj = action.payload;
@@ -61,6 +65,7 @@ export const listSlice = createSlice({
 					? { ...list, words: list.words.filter((word) => word.eng !== obj.eng) }
 					: list,
 			);
+			saveToLS('allLists', state.lists);
 		},
 	},
 });

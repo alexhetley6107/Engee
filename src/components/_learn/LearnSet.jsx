@@ -26,7 +26,7 @@ function LearnSet({ start }) {
 		dispatch(chooseAllLearnLists(names));
 	};
 
-	useEffect(() => {
+	/* useEffect(() => {
 		const saves = [];
 		const names = allLists.map((l) => l.name);
 
@@ -38,7 +38,7 @@ function LearnSet({ start }) {
 
 		const json = JSON.stringify(saves);
 		localStorage.setItem('learnLists', json);
-	}, [learnLists, allLists]);
+	}, [learnLists, allLists]); */
 
 	return (
 		<>

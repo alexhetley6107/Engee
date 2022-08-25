@@ -28,7 +28,7 @@ function TestSet({ start }) {
 		dispatch(chooseAllTestLists(names));
 	};
 
-	useEffect(() => {
+	/* useEffect(() => {
 		const saves = [];
 		const names = allLists.map((l) => l.name);
 
@@ -40,7 +40,7 @@ function TestSet({ start }) {
 
 		const json = JSON.stringify(saves);
 		localStorage.setItem('testLists', json);
-	}, [testLists, allLists]);
+	}, [testLists, allLists]); */
 
 	return (
 		<>
