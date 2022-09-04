@@ -5,7 +5,10 @@ function Footer() {
 		<footer>
 			<p>@Copiright 2022</p>
 			<div>
-				<a href='https://career.habr.com/al_hetley' target='_blank'>
+				<a
+					href='https://www.linkedin.com/in/aleksandr-bredun-785b8b1b9/'
+					target='_blank'
+					rel='noreferrer'>
 					Made by <span>Alex Bredun</span>
 				</a>
 			</div>
