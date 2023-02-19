@@ -7,86 +7,74 @@ import { chooseAllTestLists, selectTestLists, toggleTestList } from './../../red
 import getSessionWords from '../../utils/getSessionWords';
 
 function TestSet({ start }) {
-	const allLists = useSelector(selectAllLists);
-	const testLists = useSelector(selectTestLists);
+  const allLists = useSelector(selectAllLists);
+  const testLists = useSelector(selectTestLists);
 
-	const [isAlert, setAlert] = useState(false);
+  const [isAlert, setAlert] = useState(false);
 
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	const onClickStart = () => {
-		const words = getSessionWords(testLists, allLists);
-		if (words.length !== 0) {
-			start(words);
-		} else {
-			setAlert(true);
-		}
-	};
+  const onClickStart = () => {
+    const words = getSessionWords(testLists, allLists);
+    if (words.length !== 0) {
+      start(words);
+    } else {
+      setAlert(true);
+    }
+  };
 
-	const chooseAll = () => {
-		const names = allLists.map((item) => item.name);
-		dispatch(chooseAllTestLists(names));
-	};
+  const chooseAll = () => {
+    const names = allLists?.map((item) => item.name);
+    dispatch(chooseAllTestLists(names));
+  };
 
-	/* useEffect(() => {
-		const saves = [];
-		const names = allLists.map((l) => l.name);
+  return (
+    <>
+      <div className="learn">
+        <div className="learn_head">
+          <div className="learn_desc">Choose lists for testing</div>
+          <button
+            disabled={testLists?.length === allLists?.length}
+            className="learn_allBtn btn onBlack"
+            onClick={chooseAll}
+          >
+            all
+          </button>
+        </div>
+        <div className="learn_items">
+          {allLists?.map((item) => (
+            <IconList
+              key={item.name}
+              item={item}
+              sessionArray={testLists}
+              toggle={toggleTestList}
+            />
+          ))}
+        </div>
+        <div className="tests_btns">
+          <LangMode />
+          <button
+            disabled={testLists.length === 0}
+            className="learn_startBtn btn onBlack "
+            onClick={onClickStart}
+          >
+            start
+          </button>
+        </div>
+      </div>
 
-		testLists.forEach((listName) => {
-			if (names.includes(listName)) {
-				saves.push(listName);
-			}
-		});
-
-		const json = JSON.stringify(saves);
-		localStorage.setItem('testLists', json);
-	}, [testLists, allLists]); */
-
-	return (
-		<>
-			<div className='learn'>
-				<div className='learn_head'>
-					<div className='learn_desc'>Choose lists for testing</div>
-					<button
-						disabled={testLists.length === allLists.length}
-						className='learn_allBtn btn onBlack'
-						onClick={chooseAll}>
-						all
-					</button>
-				</div>
-				<div className='learn_items'>
-					{allLists.map((item) => (
-						<IconList
-							key={item.name}
-							item={item}
-							sessionArray={testLists}
-							toggle={toggleTestList}
-						/>
-					))}
-				</div>
-				<div className='tests_btns'>
-					<LangMode />
-					<button
-						disabled={testLists.length === 0}
-						className='learn_startBtn btn onBlack '
-						onClick={onClickStart}>
-						start
-					</button>
-				</div>
-			</div>
-
-			{isAlert && (
-				<PopUp close={() => setAlert(false)}>
-					<div className='alert'>
-						<p>Choosen lists have no words</p>
-						<div className='btn onWhite' onClick={() => setAlert(false)}>
-							ok
-						</div>
-					</div>
-				</PopUp>
-			)}
-		</>
-	);
+      {isAlert && (
+        <PopUp close={() => setAlert(false)}>
+          <div className="alert">
+            <p>Choosen lists have no words</p>
+            <div className="btn onWhite" onClick={() => setAlert(false)}>
+              ok
+            </div>
+          </div>
+        </PopUp>
+      )}
+    </>
+  );
 }
 
 export default TestSet;
