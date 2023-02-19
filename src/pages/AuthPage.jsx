@@ -11,8 +11,8 @@ function AuthPage({ isLogin }) {
 
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
-  const onChangeName = (e) => setUsername(e.target.value);
-  const onChangePass = (e) => setPassword(e.target.value);
+  const onChangeName = (e) => setUsername(e.target.value.trim());
+  const onChangePass = (e) => setPassword(e.target.value.trim());
 
   const handleSignUp = () => {
     try {
@@ -34,6 +34,10 @@ function AuthPage({ isLogin }) {
   React.useEffect(() => {
     setIsPopup(false);
   }, []);
+  React.useEffect(() => {
+    setUsername('');
+    setPassword('');
+  }, [isLogin]);
 
   return (
     <div className="authform">

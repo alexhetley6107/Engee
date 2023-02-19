@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink, useNavigate } from 'react-router-dom';
+import { logout } from '../redux/slices/auth';
 import { Endorse } from './index';
 
 function Nav({ isOpen, close }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [isLogOut, setIsLogOut] = useState(false);
 
   const handleLogOut = () => {
+    window.localStorage.removeItem('token');
+    dispatch(logout());
     setIsLogOut(false);
-    // navigate('/');
+    navigate('/');
   };
 
   return (

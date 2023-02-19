@@ -10,10 +10,12 @@ import { Greet } from './pages';
 import { LearnPage } from './pages';
 import { TestsPage } from './pages';
 import { ListsPage } from './pages';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getMe } from './redux/slices/auth';
 
 function App() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [isScrollBtn, setScrollBtn] = useState(false);
   const { user } = useSelector((st) => st.auth);
@@ -31,6 +33,9 @@ function App() {
       navigate('/');
     }
   }, [user]);
+  React.useEffect(() => {
+    dispatch(getMe());
+  }, []);
 
   return (
     <div className="App">
