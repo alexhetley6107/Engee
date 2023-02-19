@@ -4,217 +4,218 @@
 @import 'pages/all';
 
 .App {
-	background-color: $black;
-	padding: 0 10px;
-	color: white;
-	display: flex;
+  background-color: $black;
+  padding: 0 10px;
+  color: white;
+  display: flex;
 
-	.container {
-		margin: 0 auto;
-		width: 1200px;
-		min-height: 100vh;
-		display: flex;
-		flex-direction: column;
+  .container {
+    margin: 0 auto;
+    width: 1200px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 
-		.content {
-			flex-grow: 1;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-	}
+    .content {
+      flex-grow: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 }
 
 .intro {
-	width: 100%;
+  width: 100%;
 
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	padding: 0 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0 5px;
 
-	* {
-		color: white;
-	}
-	h1 {
-		width: 100%;
-		font-size: 96px;
-		color: white;
-	}
-	h3 {
-		width: 100%;
+  * {
+    color: white;
+  }
+  h1 {
+    width: 100%;
+    font-size: 96px;
+    color: white;
+  }
+  h3 {
+    width: 100%;
 
-		font-size: 46px;
-		span {
-			color: $blue;
-		}
-	}
-	p {
-		font-size: 36px;
-		width: 100%;
-	}
-	.intro_btn {
-		background-color: $blue;
-		font-size: 40px;
-		line-height: 40px;
-		display: block;
+    font-size: 46px;
+    span {
+      color: $blue;
+    }
+  }
+  p {
+    font-size: 36px;
+    width: 100%;
+  }
+  .intro_btn {
+    background-color: $blue;
+    font-size: 40px;
+    line-height: 40px;
+    display: block;
 
-		padding: 15px 30px;
-		padding-bottom: 20px;
-		text-transform: uppercase;
-		border-radius: 40px;
-		margin-top: 25px;
-		cursor: pointer;
+    padding: 15px 30px;
+    padding-bottom: 20px;
+    text-transform: uppercase;
+    border-radius: 40px;
+    margin-top: 25px;
+    cursor: pointer;
 
-		@media (max-width: 370px) {
-			font-size: 30px;
-			justify-self: center;
-		}
-	}
+    @media (max-width: 370px) {
+      font-size: 30px;
+      justify-self: center;
+    }
+  }
 
-	@media (max-width: 650px) {
-		align-items: center;
-		h1 {
-			font-size: 76px;
-		}
-		h3 {
-			font-size: 36px;
-		}
-		p {
-			font-size: 26px;
-			margin-top: 20px;
-		}
-	}
-	@media (max-width: 420px) {
-		h1 {
-			font-size: 56px;
-		}
-		h3 {
-			font-size: 28px;
-		}
-		p {
-			font-size: 20px;
-		}
-	}
+  @media (max-width: 650px) {
+    align-items: center;
+    h1 {
+      font-size: 76px;
+    }
+    h3 {
+      font-size: 36px;
+    }
+    p {
+      font-size: 26px;
+      margin-top: 20px;
+    }
+  }
+  @media (max-width: 420px) {
+    h1 {
+      font-size: 56px;
+    }
+    h3 {
+      font-size: 28px;
+    }
+    p {
+      font-size: 20px;
+    }
+  }
 }
 
 .authform {
-	background-color: white;
-	padding: 10px 40px;
-	border-radius: 40px;
-	text-align: center;
+  background-color: white;
+  padding: 10px 40px;
+  border-radius: 40px;
+  text-align: center;
 
-	.input {
-		width: 100%;
-		padding: 20px 0;
+  .input {
+    width: 100%;
+    padding: 20px 0;
 
-		input {
-			width: 100%;
-			background-color: white /* $yellow */;
-			text-align: center;
-			font-size: 32px;
-			border-bottom: 1px solid $gray;
-		}
-	}
-	span {
-		color: $blue;
-	}
-	.btn {
-		background-color: $blue;
-		display: inline-flex;
-		padding: 10px 35px;
-		font-size: 26px;
-		padding-bottom: 12px;
-		text-transform: uppercase;
-		border-radius: 30px;
-		margin: 10px;
-		cursor: pointer;
-	}
+    input {
+      width: 100%;
+      background-color: white /* $yellow */;
+      text-align: center;
+      font-size: 32px;
+      border-bottom: 1px solid $gray;
+    }
+  }
+  span {
+    color: $blue;
+  }
+  .btn {
+    background-color: $blue;
+    display: inline-flex;
+    padding: 10px 35px;
+    font-size: 26px;
+    padding-bottom: 12px;
+    text-transform: uppercase;
+    border-radius: 30px;
+    margin: 10px;
+    cursor: pointer;
+  }
 }
 
 .btn {
-	background-color: $blue;
-	color: white;
-	text-transform: uppercase;
-	border-radius: 35px;
-	cursor: pointer;
-	transition: all 0.3s;
-	border: none;
-	&:disabled {
-		opacity: 0.3;
-		cursor: default;
-	}
+  background-color: $blue;
+  color: white;
+  text-transform: uppercase;
+  border-radius: 35px;
+  cursor: pointer;
+  transition: all 0.3s;
+  border: none;
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+    background-color: $blue;
+  }
 }
 .onBlack {
-	transition: all 0.3s;
+  transition: all 0.3s;
 
-	@media (min-width: 800px) {
-		&:hover {
-			color: black;
-			background-color: white;
-		}
-	}
-	&:disabled {
-		&:hover {
-			color: white;
-			background-color: $blue;
-		}
-	}
+  @media (min-width: 800px) {
+    &:hover {
+      color: black;
+      background-color: white;
+    }
+  }
+  &:disabled {
+    &:hover {
+      color: white;
+      background-color: $blue;
+    }
+  }
 }
 .onWhite {
-	transition: all 0.3s;
+  transition: all 0.3s;
 
-	@media (min-width: 800px) {
-		&:hover {
-			color: white;
-			background-color: black;
-		}
-	}
+  @media (min-width: 800px) {
+    &:hover {
+      color: white;
+      background-color: black;
+    }
+  }
 }
 
 .topBtn {
-	position: fixed;
-	width: 100%;
-	bottom: 50px;
+  position: fixed;
+  width: 100%;
+  bottom: 50px;
 
-	display: flex;
-	align-items: center;
-	justify-content: end;
+  display: flex;
+  align-items: center;
+  justify-content: end;
 
-	&_cont {
-		border-radius: 70px;
-		cursor: pointer;
-		background-color: $blue;
-		color: black;
-		transition: all 0.3s;
+  &_cont {
+    border-radius: 70px;
+    cursor: pointer;
+    background-color: $blue;
+    color: black;
+    transition: all 0.3s;
 
-		display: flex;
-		align-items: center;
-		justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-		margin-right: 100px;
-	}
+    margin-right: 100px;
+  }
 
-	&_wrap {
-		transition: all 0.3s;
+  &_wrap {
+    transition: all 0.3s;
 
-		font-size: 55px;
-		width: 65px;
-		height: 65px;
-		text-align: center;
-	}
+    font-size: 55px;
+    width: 65px;
+    height: 65px;
+    text-align: center;
+  }
 
-	@media (min-width: 800px) {
-		p:hover {
-			background-color: #fff;
-		}
-	}
+  @media (min-width: 800px) {
+    p:hover {
+      background-color: #fff;
+    }
+  }
 
-	@media (max-width: 1500px) {
-		justify-content: center;
+  @media (max-width: 1500px) {
+    justify-content: center;
 
-		&_cont {
-			margin: 0;
-		}
-	}
+    &_cont {
+      margin: 0;
+    }
+  }
 }

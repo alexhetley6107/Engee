@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import './scss/app.scss';
 import { Footer, ScrollTop } from './components';
 import { Header } from './components';
 import { FullList, Intro } from './pages';
-import { LogIn } from './pages';
-import { SignUp } from './pages';
+import { AuthPage } from './pages';
 import { Greet } from './pages';
 import { LearnPage } from './pages';
 import { TestsPage } from './pages';
@@ -14,6 +13,8 @@ import { ListsPage } from './pages';
 import { useSelector } from 'react-redux';
 
 function App() {
+  const navigate = useNavigate();
+
   const [isScrollBtn, setScrollBtn] = useState(false);
   const { user } = useSelector((st) => st.auth);
 
@@ -24,6 +25,12 @@ function App() {
       setScrollBtn(false);
     }
   };
+
+  React.useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user]);
 
   return (
     <div className="App">
@@ -41,8 +48,8 @@ function App() {
           ) : (
             <Routes>
               <Route path="/" element={<Intro />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/login" element={<LogIn />} />
+              <Route path="/signup" element={<AuthPage />} />
+              <Route path="/login" element={<AuthPage isLogin />} />
             </Routes>
           )}
         </div>

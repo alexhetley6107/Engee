@@ -4,6 +4,7 @@ export { default as IconList } from './IconList';
 export { default as PopUp } from './PopUp';
 export { default as Endorse } from './Endorse';
 export { default as Nav } from './Nav';
+export { default as MyBtn } from './MyBtn';
 export { default as Message } from './Message';
 export { default as ScrollTop } from './ScrollTop';
 export { default as ListItem } from './_lists/ListItem';
