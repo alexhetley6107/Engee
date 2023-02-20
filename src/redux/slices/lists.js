@@ -1,18 +1,25 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import defaultLists from './../defaultLists';
 import { getFromLS, saveToLS } from '../../utils/localStorage';
 import axiosBase from '../../utils/axiosBase';
 
 const initialState = {
   lists: null, // null | []
   message: null,
-  initLoading: false,
+  pageLoading: false,
   isLoading: false,
 };
 
 export const getUserLists = createAsyncThunk('lists/getUserLists', async () => {
   try {
     const { data } = await axiosBase.get('/list');
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+export const getDefaultLists = createAsyncThunk('lists/getDefaultLists', async () => {
+  try {
+    const { data } = await axiosBase.get('/list/default');
     return data;
   } catch (error) {
     console.log(error);
@@ -39,10 +46,7 @@ export const listSlice = createSlice({
       state.lists = state.lists.filter((list) => list.name !== action.payload);
       saveToLS('allLists', state.lists);
     },
-    getDefault(state) {
-      state.lists = defaultLists;
-      saveToLS('allLists', state.lists);
-    },
+
     addWord(state, action) {
       const obj = action.payload;
       // obj = { listName, wordPair}
@@ -83,18 +87,34 @@ export const listSlice = createSlice({
   },
   extraReducers: {
     [getUserLists.pending]: (state) => {
-      state.initLoading = true;
+      state.pageLoading = true;
       state.message = null;
     },
     [getUserLists.fulfilled]: (state, action) => {
       const { lists, message } = action.payload;
-      state.initLoading = false;
+      state.pageLoading = false;
       state.message = message ?? null;
       state.lists = lists ?? [];
     },
     [getUserLists.rejected]: (state, action) => {
       const { message } = action.payload;
-      state.initLoading = false;
+      state.pageLoading = false;
+      state.message = message;
+      state.lists = [];
+    },
+    // get default lists
+    [getDefaultLists.pending]: (state) => {
+      state.isLoading = true;
+      state.message = null;
+    },
+    [getDefaultLists.fulfilled]: (state, action) => {
+      const { lists } = action.payload;
+      state.isLoading = false;
+      state.lists = lists;
+    },
+    [getDefaultLists.rejected]: (state, action) => {
+      const { message } = action.payload;
+      state.isLoading = false;
       state.message = message;
       state.lists = [];
     },

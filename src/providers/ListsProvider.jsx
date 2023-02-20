@@ -6,7 +6,7 @@ import { getUserLists } from '../redux/slices/lists';
 const ListsProvider = ({ children }) => {
   const dispatch = useDispatch();
 
-  const { lists, initLoading } = useSelector((st) => st.lists);
+  const { lists, pageLoading } = useSelector((st) => st.lists);
 
   React.useEffect(() => {
     if (!lists) {
@@ -14,7 +14,7 @@ const ListsProvider = ({ children }) => {
     }
   }, []);
 
-  return <>{initLoading ? <Loader /> : children}</>;
+  return <>{pageLoading ? <Loader /> : children}</>;
 };
 
 export default ListsProvider;

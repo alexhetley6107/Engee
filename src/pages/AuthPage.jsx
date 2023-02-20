@@ -51,7 +51,12 @@ function AuthPage({ isLogin }) {
         <input type="password" placeholder="password" value={password} onChange={onChangePass} />
       </div>
 
-      <MyBtn disabled={!username || !password} onClick={handleSignUp} loading={isLoading}>
+      <MyBtn
+        disabled={!username || !password}
+        onClick={handleSignUp}
+        loading={isLoading}
+        className="onWhite"
+      >
         {isLogin ? 'Log In' : 'Sign Up'}
       </MyBtn>
       <p>

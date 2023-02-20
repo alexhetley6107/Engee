@@ -1,27 +1,34 @@
 import React, { useState } from 'react';
 import { BsFillPlusCircleFill as Plus } from 'react-icons/bs';
-import { ListItem, Loader, NewListPopup } from '../components';
+import { ListItem, MyBtn, NewListPopup } from '../components';
 import { useSelector, useDispatch } from 'react-redux';
-import { createList, getDefault, selectAllLists } from '../redux/slices/lists';
+import { createList, getDefaultLists } from '../redux/slices/lists';
 import ListsProvider from '../providers/ListsProvider';
 
 function ListsPage() {
-  const { lists } = useSelector((st) => st.lists);
+  const { lists, isLoading } = useSelector((st) => st.lists);
   const { user } = useSelector((st) => st.auth);
 
   const [isNew, setNew] = useState(false);
-  const [isNoLists, setNoLists] = useState(lists?.length === 0);
-  const wordsAmount = lists?.map((list) => list.words.length).reduce((sum, a) => sum + a, 0);
+  const [isNoLists, setIsNoLists] = useState(lists?.length === 0);
+  const [wordsAmount, setWordsAmount] = useState(
+    lists?.map((list) => list.words.length).reduce((sum, a) => sum + a, 0)
+  );
 
   const dispatch = useDispatch();
   const handleGetDefault = () => {
-    dispatch(getDefault());
+    dispatch(getDefaultLists());
   };
 
   const handleCreateList = (name) => {
-    const list = { name, words: [] };
-    dispatch(createList(list));
+    // const list = { name, words: [] };
+    // dispatch(createList(list));
   };
+
+  React.useEffect(() => {
+    setIsNoLists(lists?.length === 0);
+    setWordsAmount(lists?.map((list) => list.words.length).reduce((sum, a) => sum + a, 0));
+  }, [lists, wordsAmount]);
 
   return (
     <ListsProvider>
@@ -38,9 +45,9 @@ function ListsPage() {
         <div className="lists_items">
           {isNoLists ? (
             <div className="lists_no">
-              <p className="testing_checkBtn btn onBlack" onClick={handleGetDefault}>
+              <MyBtn onClick={handleGetDefault} className="onBlack" loading={isLoading}>
                 default
-              </p>
+              </MyBtn>
             </div>
           ) : (
             lists?.map((i) => <ListItem key={i.name} item={i} lists={lists} />)
