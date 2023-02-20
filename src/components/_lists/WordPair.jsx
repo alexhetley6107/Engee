@@ -6,56 +6,56 @@ import { useDispatch } from 'react-redux';
 import { editWord, deleteWord } from '../../redux/slices/lists';
 import { Endorse, AddWordPopup } from './../index';
 
-function WordPair({ word, list }) {
-	const [isEdit, setEdit] = useState(false);
-	const [isDel, setDel] = useState(false);
+function WordPair({ _id, eng, rus, list }) {
+  const dispatch = useDispatch();
 
-	const dispatch = useDispatch();
+  const [isEdit, setEdit] = useState(false);
+  const [isDel, setDel] = useState(false);
 
-	const handleEditWord = (engNew, rusNew) => {
-		const listName = list.name;
-		const engOld = word.eng;
+  // const { lists, pageLoading, fullListWords } = useSelector((st) => st.lists);
 
-		dispatch(editWord({ listName, engOld, engNew, rusNew }));
-	};
+  const handleEditWord = (engNew, rusNew) => {
+    // const listName = list.name;
+    // const engOld = word.eng;
+    // dispatch(editWord({ listName, engOld, engNew, rusNew }));
+  };
 
-	const handleDeleteWord = (eng) => {
-		const listName = list.name;
+  const handleDeleteWord = (eng) => {
+    // const listName = list.name;
+    // dispatch(deleteWord({ listName, eng }));
+  };
 
-		dispatch(deleteWord({ listName, eng }));
-	};
+  return (
+    <>
+      <div className="pair">
+        <div className="pair_words">
+          <div>{eng}</div>
+          <p>—</p>
+          <div>{rus}</div>
+        </div>
+        <div className="pair_btns">
+          <p onClick={() => setEdit(true)}>
+            <Edit />
+          </p>
+          <p onClick={() => setDel(true)}>
+            <Del />
+          </p>
+        </div>
+      </div>
 
-	return (
-		<>
-			<div className='pair'>
-				<div className='pair_words'>
-					<div>{word.eng}</div>
-					<p>—</p>
-					<div>{word.rus}</div>
-				</div>
-				<div className='pair_btns'>
-					<p onClick={() => setEdit(true)}>
-						<Edit />
-					</p>
-					<p onClick={() => setDel(true)}>
-						<Del />
-					</p>
-				</div>
-			</div>
+      {isEdit && (
+        <AddWordPopup ok={handleEditWord} close={() => setEdit(false)} list={list}>
+          Edit the pair
+        </AddWordPopup>
+      )}
 
-			{isEdit && (
-				<AddWordPopup ok={handleEditWord} close={() => setEdit(false)} list={list}>
-					Edit the pair
-				</AddWordPopup>
-			)}
-
-			{isDel && (
-				<Endorse yes={() => handleDeleteWord(word.eng)} close={() => setDel(false)}>
-					Do you want to delete the pair?
-				</Endorse>
-			)}
-		</>
-	);
+      {isDel && (
+        <Endorse yes={() => handleDeleteWord(eng)} close={() => setDel(false)}>
+          Do you want to delete the pair?
+        </Endorse>
+      )}
+    </>
+  );
 }
 
 export default WordPair;

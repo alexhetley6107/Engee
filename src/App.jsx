@@ -48,7 +48,7 @@ function App() {
               <Route path="/learn" element={<LearnPage />} />
               <Route path="/tests" element={<TestsPage />} />
               <Route path="/lists" element={<ListsPage />} />
-              <Route path="/lists/:name" element={<FullList />} />
+              <Route path="/lists/:id" element={<FullList />} />
             </Routes>
           ) : (
             <Routes>

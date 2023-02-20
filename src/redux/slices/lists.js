@@ -4,6 +4,7 @@ import axiosBase from '../../utils/axiosBase';
 
 const initialState = {
   lists: null, // null | []
+  fullListWords: null, // null | []
   message: null,
   pageLoading: false,
   isLoading: false,
@@ -20,6 +21,14 @@ export const getUserLists = createAsyncThunk('lists/getUserLists', async () => {
 export const getDefaultLists = createAsyncThunk('lists/getDefaultLists', async () => {
   try {
     const { data } = await axiosBase.get('/list/default');
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+export const getFullListWords = createAsyncThunk('lists/getFullListWords', async (id) => {
+  try {
+    const { data } = await axiosBase.get(`/word/${id}`);
     return data;
   } catch (error) {
     console.log(error);
@@ -86,6 +95,7 @@ export const listSlice = createSlice({
     },
   },
   extraReducers: {
+    //get users lists
     [getUserLists.pending]: (state) => {
       state.pageLoading = true;
       state.message = null;
@@ -115,6 +125,22 @@ export const listSlice = createSlice({
     [getDefaultLists.rejected]: (state, action) => {
       const { message } = action.payload;
       state.isLoading = false;
+      state.message = message;
+      state.lists = [];
+    },
+    // get full list words
+    [getFullListWords.pending]: (state) => {
+      state.pageLoading = true;
+      state.message = null;
+    },
+    [getFullListWords.fulfilled]: (state, action) => {
+      const { words } = action.payload;
+      state.pageLoading = false;
+      state.fullListWords = words;
+    },
+    [getFullListWords.rejected]: (state, action) => {
+      const { message } = action.payload;
+      state.pageLoading = false;
       state.message = message;
       state.lists = [];
     },
