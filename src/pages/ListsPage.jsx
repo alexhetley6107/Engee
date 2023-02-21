@@ -20,11 +20,6 @@ function ListsPage() {
     dispatch(getDefaultLists());
   };
 
-  const handleCreateList = (name) => {
-    // const list = { name, words: [] };
-    // dispatch(createList(list));
-  };
-
   React.useEffect(() => {
     setIsNoLists(lists?.length === 0);
     setWordsAmount(lists?.map((list) => list.words.length).reduce((sum, a) => sum + a, 0));
@@ -56,7 +51,7 @@ function ListsPage() {
       </div>
 
       {isNew && (
-        <NewListPopup ok={handleCreateList} close={() => setNew(false)} lists={lists}>
+        <NewListPopup close={() => setNew(false)} lists={lists}>
           Create new list
         </NewListPopup>
       )}

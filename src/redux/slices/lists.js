@@ -1,5 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { getFromLS, saveToLS } from '../../utils/localStorage';
 import axiosBase from '../../utils/axiosBase';
 
 const initialState = {
@@ -34,64 +33,21 @@ export const getFullListWords = createAsyncThunk('lists/getFullListWords', async
     console.log(error);
   }
 });
+export const createNewList = createAsyncThunk('lists/createNewList', async (name) => {
+  try {
+    const { data } = await axiosBase.post(`/list`, { name });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export const listSlice = createSlice({
   name: 'lists',
   initialState,
   reducers: {
-    createList(state, action) {
-      state.lists = [action.payload, ...state.lists];
-
-      saveToLS('allLists', state.lists);
-    },
-    renameList(state, action) {
-      state.lists.map((list) =>
-        list.name === action.payload.oldName ? (list.name = action.payload.newName) : list
-      );
-
-      saveToLS('allLists', state.lists);
-    },
-    removeList(state, action) {
-      state.lists = state.lists.filter((list) => list.name !== action.payload);
-      saveToLS('allLists', state.lists);
-    },
-
-    addWord(state, action) {
-      const obj = action.payload;
-      // obj = { listName, wordPair}
-
-      state.lists = state.lists.map((list) =>
-        list.name === obj.listName ? { ...list, words: [obj.wordPair, ...list.words] } : list
-      );
-
-      saveToLS('allLists', state.lists);
-    },
-    editWord(state, action) {
-      const { listName, engOld, engNew, rusNew } = action.payload;
-
-      state.lists = state.lists.map((list) =>
-        list.name === listName
-          ? {
-              ...list,
-              words: list.words.map((word) =>
-                word.eng === engOld ? { eng: engNew, rus: rusNew } : word
-              ),
-            }
-          : list
-      );
-
-      saveToLS('allLists', state.lists);
-    },
-    deleteWord(state, action) {
-      const obj = action.payload;
-      // obj = { listName, eng}
-
-      state.lists = state.lists.map((list) =>
-        list.name === obj.listName
-          ? { ...list, words: list.words.filter((word) => word.eng !== obj.eng) }
-          : list
-      );
-      saveToLS('allLists', state.lists);
+    setMessage(state, action) {
+      state.message = action.payload;
     },
   },
   extraReducers: {
@@ -144,12 +100,82 @@ export const listSlice = createSlice({
       state.message = message;
       state.lists = [];
     },
+    // create new list
+    [createNewList.pending]: (state) => {
+      state.isLoading = true;
+      state.message = null;
+    },
+    [createNewList.fulfilled]: (state, action) => {
+      const { newList, message } = action?.payload;
+      state.isLoading = false;
+      state.lists = [...state.lists, newList];
+      state.message = message;
+    },
+    [createNewList.rejected]: (state, action) => {
+      const { message } = action.payload;
+      state.isLoading = false;
+      state.message = message;
+    },
   },
 });
 
 export const selectAllLists = (state) => state.lists.lists;
 
-export const { createList, renameList, removeList, addWord, editWord, deleteWord, getDefault } =
-  listSlice.actions;
+export const { setMessage } = listSlice.actions;
 
 export default listSlice.reducer;
+
+/* createList(state, action) {
+      state.lists = [action.payload, ...state.lists];
+
+      saveToLS('allLists', state.lists);
+    },
+    renameList(state, action) {
+      state.lists.map((list) =>
+        list.name === action.payload.oldName ? (list.name = action.payload.newName) : list
+      );
+
+      saveToLS('allLists', state.lists);
+    },
+    removeList(state, action) {
+      state.lists = state.lists.filter((list) => list.name !== action.payload);
+      saveToLS('allLists', state.lists);
+    },
+
+    addWord(state, action) {
+      const obj = action.payload;
+      // obj = { listName, wordPair}
+
+      state.lists = state.lists.map((list) =>
+        list.name === obj.listName ? { ...list, words: [obj.wordPair, ...list.words] } : list
+      );
+
+      saveToLS('allLists', state.lists);
+    },
+    editWord(state, action) {
+      const { listName, engOld, engNew, rusNew } = action.payload;
+
+      state.lists = state.lists.map((list) =>
+        list.name === listName
+          ? {
+              ...list,
+              words: list.words.map((word) =>
+                word.eng === engOld ? { eng: engNew, rus: rusNew } : word
+              ),
+            }
+          : list
+      );
+
+      saveToLS('allLists', state.lists);
+    },
+    deleteWord(state, action) {
+      const obj = action.payload;
+      // obj = { listName, eng}
+
+      state.lists = state.lists.map((list) =>
+        list.name === obj.listName
+          ? { ...list, words: list.words.filter((word) => word.eng !== obj.eng) }
+          : list
+      );
+      saveToLS('allLists', state.lists);
+    }, */

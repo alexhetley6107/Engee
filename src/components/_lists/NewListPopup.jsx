@@ -1,37 +1,44 @@
 import React, { useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { createNewList, setMessage } from '../../redux/slices/lists';
+import MyBtn from '../MyBtn';
 import PopUp from '../PopUp';
 
-function NewListPopup({ children, close, ok, lists }) {
-	const input = useRef();
-	const [isExists, setExists] = useState(false);
+function NewListPopup({ close }) {
+  const dispatch = useDispatch();
+  const { lists, isLoading, message } = useSelector((st) => st.lists);
 
-	const handleOK = () => {
-		const name = input.current.value.trim();
+  const [value, setValue] = useState('');
+  const onChangeName = (e) => setValue(e.target.value.trim());
 
-		if (name === '') return;
+  const handleOK = () => {
+    const allNames = lists.map((l) => l.name);
 
-		const allNames = lists.map((l) => l.name);
+    if (allNames.includes(value)) {
+      dispatch(setMessage('Such lists is already exists'));
+    } else {
+      dispatch(createNewList(value));
+    }
+  };
 
-		if (allNames.includes(name)) {
-			setExists(true);
-		} else {
-			ok(name);
-			close();
-		}
-	};
+  const handleClose = () => {
+    if (isLoading) return;
+    close();
+  };
 
-	return (
-		<PopUp close={close}>
-			<div>
-				{children}
-				{isExists && <h5>Such lists is already exists</h5>}
-			</div>
-			<input ref={input} type='text' placeholder='name of list' />
-			<p className='btn onWhite' onClick={handleOK}>
-				ok
-			</p>
-		</PopUp>
-	);
+  React.useEffect(() => {
+    if (!isLoading && message) handleClose();
+  }, [lists]);
+
+  return (
+    <PopUp close={handleClose}>
+      <p>Create new list</p>
+      <input value={value} onChange={onChangeName} type="text" placeholder="name of list" />
+      <MyBtn className="onWhite" onClick={handleOK} disabled={!value} loading={isLoading}>
+        ok
+      </MyBtn>
+    </PopUp>
+  );
 }
 
 export default NewListPopup;
