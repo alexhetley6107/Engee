@@ -2,8 +2,12 @@ import React from 'react';
 import { Bars } from 'react-loader-spinner';
 
 function MyBtn({ children, loading, onClick, disabled, className }) {
+  const handleClick = () => {
+    if (!loading) onClick();
+  };
+
   return (
-    <button disabled={disabled} className={`${className} my_btn `} onClick={onClick}>
+    <button disabled={disabled} className={`${className} my_btn `} onClick={handleClick}>
       {children}
 
       {loading && (

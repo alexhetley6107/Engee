@@ -43,12 +43,7 @@ function TestSet({ start }) {
         </div>
         <div className="learn_items">
           {allLists?.map((item) => (
-            <IconList
-              key={item.name}
-              item={item}
-              sessionArray={testLists}
-              toggle={toggleTestList}
-            />
+            <IconList key={item._id} item={item} sessionArray={testLists} toggle={toggleTestList} />
           ))}
         </div>
         <div className="tests_btns">

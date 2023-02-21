@@ -45,16 +45,12 @@ function ListsPage() {
               </MyBtn>
             </div>
           ) : (
-            lists?.map((i) => <ListItem key={i.name} item={i} lists={lists} />)
+            lists?.map((l) => <ListItem key={l._id} list={l} />)
           )}
         </div>
       </div>
 
-      {isNew && (
-        <NewListPopup close={() => setNew(false)} lists={lists}>
-          Create new list
-        </NewListPopup>
-      )}
+      {isNew && <NewListPopup close={() => setNew(false)}>Create new list</NewListPopup>}
     </ListsProvider>
   );
 }

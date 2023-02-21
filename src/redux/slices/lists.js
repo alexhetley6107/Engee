@@ -41,6 +41,16 @@ export const createNewList = createAsyncThunk('lists/createNewList', async (name
     console.log(error);
   }
 });
+export const renameList = createAsyncThunk('lists/renameList', async (dto) => {
+  const { id, name } = dto;
+
+  try {
+    const { data } = await axiosBase.put(`/list`, { id, name });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
 
 export const listSlice = createSlice({
   name: 'lists',
@@ -110,8 +120,25 @@ export const listSlice = createSlice({
       state.isLoading = false;
       state.lists = [...state.lists, newList];
       state.message = message;
+      console.log('end');
     },
     [createNewList.rejected]: (state, action) => {
+      const { message } = action.payload;
+      state.isLoading = false;
+      state.message = message;
+    },
+    // rename list
+    [renameList.pending]: (state) => {
+      state.isLoading = true;
+      state.message = null;
+    },
+    [renameList.fulfilled]: (state, action) => {
+      const { list, message } = action?.payload;
+      state.isLoading = false;
+      state.message = message;
+      state.lists = state.lists.map((l) => (l._id === list._id ? list : l));
+    },
+    [renameList.rejected]: (state, action) => {
       const { message } = action.payload;
       state.isLoading = false;
       state.message = message;

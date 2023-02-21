@@ -42,7 +42,7 @@ function LearnSet({ start }) {
         <div className="learn_items">
           {allLists?.map((item) => (
             <IconList
-              key={item.name}
+              key={item._id}
               item={item}
               sessionArray={learnLists}
               toggle={toggleLearnList}
