@@ -55,6 +55,9 @@ export const authSlice = createSlice({
       state.user = null;
       state.token = null;
     },
+    setAuthMessage(state, action) {
+      state.message = action.payload;
+    },
   },
   extraReducers: {
     [registerUser.pending]: (state) => {
@@ -108,7 +111,7 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logout } = authSlice.actions;
+export const { logout, setAuthMessage } = authSlice.actions;
 
 export const checkIsAuth = (state) => !!state.auth.token;
 

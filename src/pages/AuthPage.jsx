@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { MyBtn, PopUp } from '../components';
-import { loginUser, registerUser } from '../redux/slices/auth';
+import { loginUser, registerUser, setAuthMessage } from '../redux/slices/auth';
 
 function AuthPage({ isLogin }) {
   const dispatch = useDispatch();
@@ -11,10 +11,19 @@ function AuthPage({ isLogin }) {
 
   const [username, setUsername] = React.useState('');
   const [password, setPassword] = React.useState('');
+  const [confirmPass, setConfirmPass] = React.useState('');
   const onChangeName = (e) => setUsername(e.target.value.trim());
   const onChangePass = (e) => setPassword(e.target.value.trim());
+  const onChangeConfirmPass = (e) => setConfirmPass(e.target.value.trim());
 
-  const handleSignUp = () => {
+  const handleAuth = () => {
+    if (!isLogin && password !== confirmPass) {
+      dispatch(setAuthMessage('Passwords does not match'));
+      setIsPopup(true);
+
+      return;
+    }
+
     try {
       if (isLogin) {
         dispatch(loginUser({ username, password }));
@@ -37,6 +46,7 @@ function AuthPage({ isLogin }) {
   React.useEffect(() => {
     setUsername('');
     setPassword('');
+    setConfirmPass('');
   }, [isLogin]);
 
   return (
@@ -44,16 +54,24 @@ function AuthPage({ isLogin }) {
       <div className="name-input input">
         <input type="text" placeholder="name" value={username} onChange={onChangeName} />
       </div>
-      {/* <div className="email-input input">
-        <input type="email" placeholder="email" />
-      </div> */}
+
       <div className="pass-input input">
         <input type="password" placeholder="password" value={password} onChange={onChangePass} />
       </div>
+      {!isLogin && (
+        <div className="pass-input input">
+          <input
+            type="password"
+            placeholder="confirm password"
+            value={confirmPass}
+            onChange={onChangeConfirmPass}
+          />
+        </div>
+      )}
 
       <MyBtn
-        disabled={!username || !password}
-        onClick={handleSignUp}
+        disabled={!username || !password || (!isLogin && !confirmPass)}
+        onClick={handleAuth}
         loading={isLoading}
         className="onWhite"
       >

@@ -1,100 +1,100 @@
 .popup {
-	position: fixed;
-	z-index: 100;
-	top: 0;
-	left: 0;
-	width: 100vw;
-	height: 100vh;
-	background-color: rgba(0, 0, 0, 0.7);
-	font-size: 36px;
-	text-align: center;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  font-size: 36px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-	@media (max-width: 370px) {
-		font-size: 26px;
-	}
+  @media (max-width: 370px) {
+    font-size: 26px;
+  }
 
-	div {
-		position: relative;
+  div {
+    position: relative;
 
-		h5 {
-			position: absolute;
-			text-align: center;
-			width: 100%;
-			font-size: 18px;
-			color: red;
-			font-weight: 500;
-		}
-	}
+    h5 {
+      position: absolute;
+      text-align: center;
+      width: 100%;
+      font-size: 18px;
+      color: red;
+      font-weight: 500;
+    }
+  }
 
-	&_wrap {
-		background-color: #fff;
-		color: #000;
-		padding: 40px;
-		border-radius: 30px;
-		margin: 15px;
+  &_wrap {
+    background-color: #fff;
+    color: #000;
+    padding: 40px;
+    border-radius: 30px;
+    margin: 15px;
 
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-		@media (max-width: 370px) {
-			padding: 20px;
-		}
-	}
+    @media (max-width: 370px) {
+      padding: 20px;
+    }
+  }
 
-	input {
-		font-size: 36px;
-		width: 100%;
-		text-align: center;
-		margin: 25px;
-		border-bottom: 1px solid gray;
-	}
+  input {
+    font-size: 36px;
+    width: 100%;
+    text-align: center;
+    margin: 25px;
+    border-bottom: 1px solid gray;
+  }
 
-	p.btn {
-		color: #fff;
-		font-size: 32px;
-		padding: 5px 30px;
-		padding-bottom: 8px;
-	}
+  p.btn {
+    color: #fff;
+    font-size: 32px;
+    padding: 5px 30px;
+    padding-bottom: 8px;
+  }
 
-	.alert {
-		padding: 10px 20px;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
+  .alert {
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
-		p {
-			margin-bottom: 40px;
-		}
-		div {
-			color: #fff;
-		}
+    p {
+      margin-bottom: 40px;
+    }
+    div {
+      color: #fff;
+    }
 
-		div.btn {
-			color: white;
-			padding: 5px 25px;
-			padding-bottom: 7px;
-		}
-	}
+    div.btn {
+      color: white;
+      padding: 5px 25px;
+      padding-bottom: 7px;
+    }
+  }
 }
 
 .endorse_title {
-	margin-bottom: 30px;
+  margin-bottom: 30px;
 }
 .endorse_btns {
-	width: 100%;
-	display: flex;
-	justify-content: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
 
-	div.btn {
-		color: white;
-		padding: 5px 25px;
-		padding-bottom: 7px;
-	}
-	& div:first-child {
-		margin-right: 30px;
-	}
+  .btn {
+    color: white;
+    padding: 5px 25px;
+    padding-bottom: 7px;
+  }
+  // & div:first-child {
+  //   margin-right: 30px;
+  // }
 }

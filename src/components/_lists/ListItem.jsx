@@ -4,9 +4,13 @@ import { FaEye as Eye } from 'react-icons/fa';
 import { HiTrash as Del } from 'react-icons/hi';
 import { RiEditFill as Rename } from 'react-icons/ri';
 import { NewListPopup, Endorse } from './../index';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteList } from '../../redux/slices/lists';
 
 function ListItem({ list }) {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { message, isLoading, lists } = useSelector((st) => st.lists);
 
   const [isRename, setRename] = useState(false);
   const [isDel, setDel] = useState(false);
@@ -23,7 +27,15 @@ function ListItem({ list }) {
     setDel(true);
   };
 
-  const remove = () => {};
+  const handleDeleteList = () => {
+    dispatch(deleteList(_id));
+  };
+
+  React.useEffect(() => {
+    if (!isLoading && message) {
+      setDel(false);
+    }
+  }, [lists]);
 
   return (
     <>
@@ -60,7 +72,7 @@ function ListItem({ list }) {
         </NewListPopup>
       )}
       {isDel && (
-        <Endorse yes={remove} close={() => setDel(false)}>
+        <Endorse yes={handleDeleteList} close={() => setDel(false)} loading={isLoading}>
           Do you want to remove the {name} list?
         </Endorse>
       )}
