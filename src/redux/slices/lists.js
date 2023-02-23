@@ -33,6 +33,8 @@ export const getFullListWords = createAsyncThunk('lists/getFullListWords', async
     console.log(error);
   }
 });
+
+//lists
 export const createNewList = createAsyncThunk('lists/createNewList', async (name) => {
   try {
     const { data } = await axiosBase.post(`/list`, { name });
@@ -53,7 +55,37 @@ export const renameList = createAsyncThunk('lists/renameList', async (dto) => {
 });
 export const deleteList = createAsyncThunk('lists/deleteList', async (id) => {
   try {
-    const { data } = await axiosBase.delete(`/list/${id}`, { id });
+    const { data } = await axiosBase.delete(`/list/${id}`);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+//words
+export const addNewWord = createAsyncThunk('words/addNewWord', async (dto) => {
+  const { listId, eng, rus } = dto;
+  try {
+    const { data } = await axiosBase.post(`/word`, { listId, eng, rus });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+export const editWord = createAsyncThunk('words/editWord', async (dto) => {
+  const { id, eng, rus } = dto;
+
+  try {
+    const { data } = await axiosBase.put(`/word`, { id, eng, rus });
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+export const deleteWord = createAsyncThunk('words/deleteWord', async (dto) => {
+  const { id, listId } = dto;
+  try {
+    const { data } = await axiosBase.delete(`/word/${id}/${listId}`);
     return data;
   } catch (error) {
     console.log(error);
@@ -162,6 +194,61 @@ export const listSlice = createSlice({
       state.lists = state.lists.filter((l) => l._id !== id);
     },
     [deleteList.rejected]: (state, action) => {
+      const { message } = action.payload;
+      state.isLoading = false;
+      state.message = message;
+    },
+
+    // add new word
+    [addNewWord.pending]: (state) => {
+      state.isLoading = true;
+      state.message = null;
+    },
+    [addNewWord.fulfilled]: (state, action) => {
+      const { word, message } = action?.payload;
+      state.isLoading = false;
+      state.message = message;
+      state.fullListWords = [...state.fullListWords, word];
+      state.lists = state.lists.map((l) =>
+        l._id === word.placeListId ? { ...l, words: [...l.words, word._id] } : l
+      );
+    },
+    [addNewWord.rejected]: (state, action) => {
+      const { message } = action.payload;
+      state.isLoading = false;
+      state.message = message;
+    },
+    // edit word
+    [editWord.pending]: (state) => {
+      state.isLoading = true;
+      state.message = null;
+    },
+    [editWord.fulfilled]: (state, action) => {
+      const { word, message } = action?.payload;
+      state.isLoading = false;
+      state.message = message;
+      state.fullListWords = state.fullListWords.map((w) => (w._id === word._id ? word : w));
+    },
+    [editWord.rejected]: (state, action) => {
+      const { message } = action.payload;
+      state.isLoading = false;
+      state.message = message;
+    },
+    // delete word
+    [deleteWord.pending]: (state) => {
+      state.isLoading = true;
+      state.message = null;
+    },
+    [deleteWord.fulfilled]: (state, action) => {
+      const { id, listId, message } = action?.payload;
+      state.isLoading = false;
+      state.message = message;
+      state.fullListWords = state.fullListWords.filter((w) => w._id !== id);
+      state.lists = state.lists.map((l) =>
+        l._id === listId ? { ...l, words: l.words.filter((w) => w !== id) } : l
+      );
+    },
+    [deleteWord.rejected]: (state, action) => {
       const { message } = action.payload;
       state.isLoading = false;
       state.message = message;

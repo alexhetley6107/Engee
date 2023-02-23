@@ -21,7 +21,6 @@ const ListsProvider = ({ children }) => {
   }, []);
   React.useEffect(() => {
     if (message) {
-      // dispatch(setMessage(message));
       setPopup(true);
     }
   }, [message]);

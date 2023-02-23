@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import { BsFillPlusCircleFill as Plus } from 'react-icons/bs';
 import { ListItem, MyBtn, NewListPopup } from '../components';
 import { useSelector, useDispatch } from 'react-redux';
-import { createList, getDefaultLists } from '../redux/slices/lists';
+import { getDefaultLists } from '../redux/slices/lists';
 import ListsProvider from '../providers/ListsProvider';
 
 function ListsPage() {
+  const dispatch = useDispatch();
   const { lists, isLoading } = useSelector((st) => st.lists);
   const { user } = useSelector((st) => st.auth);
 
@@ -15,10 +16,7 @@ function ListsPage() {
     lists?.map((list) => list.words.length).reduce((sum, a) => sum + a, 0)
   );
 
-  const dispatch = useDispatch();
-  const handleGetDefault = () => {
-    dispatch(getDefaultLists());
-  };
+  const handleGetDefault = () => dispatch(getDefaultLists());
 
   React.useEffect(() => {
     setIsNoLists(lists?.length === 0);
@@ -30,8 +28,7 @@ function ListsPage() {
       <div className="lists">
         <div className="lists_head">
           <div className="lists_owner">
-            {user.username}'s <span>{user.lists.length}</span> lists : <span>{wordsAmount}</span>{' '}
-            words
+            {user.username}'s <span>{lists?.length}</span> lists : <span>{wordsAmount}</span> words
           </div>
           <p className="addBtn" onClick={() => setNew(true)}>
             <Plus />

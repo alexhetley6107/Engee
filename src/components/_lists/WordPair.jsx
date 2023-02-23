@@ -1,29 +1,32 @@
 import React, { useState } from 'react';
 import { HiTrash as Del } from 'react-icons/hi';
 import { RiEditFill as Edit } from 'react-icons/ri';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
-import { editWord, deleteWord } from '../../redux/slices/lists';
+import { deleteWord } from '../../redux/slices/lists';
 import { Endorse, AddWordPopup } from './../index';
 
-function WordPair({ _id, eng, rus, list }) {
+function WordPair({ word }) {
   const dispatch = useDispatch();
 
   const [isEdit, setEdit] = useState(false);
   const [isDel, setDel] = useState(false);
 
-  // const { lists, pageLoading, fullListWords } = useSelector((st) => st.lists);
+  const { _id, eng, rus, placeListId } = word;
+  const { isLoading, fullListWords, message } = useSelector((st) => st.lists);
 
-  const handleEditWord = (engNew, rusNew) => {
-    // const listName = list.name;
-    // const engOld = word.eng;
-    // dispatch(editWord({ listName, engOld, engNew, rusNew }));
+  const handleEditWord = () => {};
+
+  const handleDeleteWord = () => {
+    const dto = { id: _id, listId: placeListId };
+    dispatch(deleteWord(dto));
   };
 
-  const handleDeleteWord = (eng) => {
-    // const listName = list.name;
-    // dispatch(deleteWord({ listName, eng }));
-  };
+  React.useEffect(() => {
+    if (!isLoading && message) {
+      setDel(false);
+    }
+  }, [fullListWords]);
 
   return (
     <>
@@ -44,13 +47,13 @@ function WordPair({ _id, eng, rus, list }) {
       </div>
 
       {isEdit && (
-        <AddWordPopup ok={handleEditWord} close={() => setEdit(false)} list={list}>
+        <AddWordPopup ok={handleEditWord} close={() => setEdit(false)} word={word}>
           Edit the pair
         </AddWordPopup>
       )}
 
       {isDel && (
-        <Endorse yes={() => handleDeleteWord(eng)} close={() => setDel(false)}>
+        <Endorse yes={handleDeleteWord} close={() => setDel(false)} loading={isLoading}>
           Do you want to delete the pair?
         </Endorse>
       )}
