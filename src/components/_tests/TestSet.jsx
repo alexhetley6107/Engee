@@ -42,8 +42,8 @@ function TestSet({ start }) {
           </button>
         </div>
         <div className="learn_items">
-          {allLists?.map((item) => (
-            <IconList key={item._id} item={item} sessionArray={testLists} toggle={toggleTestList} />
+          {allLists?.map((l) => (
+            <IconList key={l._id} list={l} sessionArray={testLists} toggle={toggleTestList} />
           ))}
         </div>
         <div className="tests_btns">

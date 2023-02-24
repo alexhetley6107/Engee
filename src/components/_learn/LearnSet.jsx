@@ -1,29 +1,31 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { IconList, MyBtn, PopUp } from '../index';
+import { toggleLearnList, chooseAllLearnLists, startLearning } from './../../redux/slices/learn';
 
-import { IconList, PopUp } from '../index';
-import { selectAllLists } from './../../redux/slices/lists';
-import { selectLearnLists, toggleLearnList, chooseAllLearnLists } from './../../redux/slices/learn';
-import getSessionWords from '../../utils/getSessionWords';
-
-function LearnSet({ start }) {
-  const allLists = useSelector(selectAllLists);
-  const learnLists = useSelector(selectLearnLists);
+function LearnSet() {
+  const dispatch = useDispatch();
+  const { lists } = useSelector((st) => st.lists);
+  const { learnLists, isLoading } = useSelector((st) => st.learn);
   const [isAlert, setAlert] = useState(false);
 
   const onClickStart = () => {
-    const words = getSessionWords(learnLists, allLists);
-    if (words.length !== 0) {
-      start(words);
+    const wordsAmount = lists
+      .filter((l) => learnLists.includes(l._id))
+      .map((l) => l.words.length)
+      .reduce((sum, a) => sum + a, 0);
+
+    if (wordsAmount > 0) {
+      const listIds = JSON.stringify(learnLists);
+      dispatch(startLearning(listIds));
     } else {
       setAlert(true);
     }
   };
 
-  const dispatch = useDispatch();
   const chooseAll = () => {
-    const names = allLists?.map((item) => item.name);
-    dispatch(chooseAllLearnLists(names));
+    const listIds = lists?.map((item) => item._id);
+    dispatch(chooseAllLearnLists(listIds));
   };
 
   return (
@@ -32,7 +34,7 @@ function LearnSet({ start }) {
         <div className="learn_head">
           <div className="learn_desc">Choose lists for learning</div>
           <button
-            disabled={learnLists.length === allLists?.length}
+            disabled={learnLists.length === lists?.length}
             className="learn_allBtn btn onBlack"
             onClick={chooseAll}
           >
@@ -40,22 +42,18 @@ function LearnSet({ start }) {
           </button>
         </div>
         <div className="learn_items">
-          {allLists?.map((item) => (
-            <IconList
-              key={item._id}
-              item={item}
-              sessionArray={learnLists}
-              toggle={toggleLearnList}
-            />
+          {lists?.map((l) => (
+            <IconList key={l._id} list={l} sessionArray={learnLists} toggle={toggleLearnList} />
           ))}
         </div>
-        <button
+        <MyBtn
           disabled={learnLists.length === 0}
-          className="learn_startBtn btn onBlack"
+          className="onBlack"
           onClick={onClickStart}
+          loading={isLoading}
         >
           start
-        </button>
+        </MyBtn>
       </div>
 
       {isAlert && (
