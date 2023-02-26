@@ -72,7 +72,7 @@ function Learning() {
             </div>
           </div>
           <div className="session_words_amount">
-            <span>{initialWordsAmount - words.length + 1}</span>/<span>{initialWordsAmount}</span>
+            <span>{initialWordsAmount - words.length}</span>/<span>{initialWordsAmount}</span>
           </div>
           <button className="learn_remBtn btn onBlack" onClick={rememberWord}>
             remember

@@ -110,8 +110,7 @@ function Testing() {
                 hint
               </button>
               <div className="session_words_amount">
-                <span>{initialWordsAmount - words.length + 1}</span>/
-                <span>{initialWordsAmount}</span>
+                <span>{initialWordsAmount - words.length}</span>/<span>{initialWordsAmount}</span>
               </div>
 
               <button className="testing_checkBtn btn onBlack" onClick={checkWord}>
