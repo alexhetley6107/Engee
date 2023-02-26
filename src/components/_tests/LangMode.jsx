@@ -1,28 +1,26 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
-	BsFillArrowRightCircleFill as Right,
-	BsFillArrowLeftCircleFill as Left,
+  BsFillArrowRightCircleFill as Right,
+  BsFillArrowLeftCircleFill as Left,
 } from 'react-icons/bs';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { selectMode, toggleMode } from '../../redux/slices/tests';
+import { toggleMode } from '../../redux/slices/tests';
 
 function LangMode() {
-	const origin = useSelector(selectMode);
+  const { isEngMode } = useSelector((st) => st.tests);
 
-	const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-	const onClickMode = () => {
-		dispatch(toggleMode());
-	};
+  const onClickMode = () => dispatch(toggleMode());
 
-	return (
-		<div className={`langMode ${origin ? '' : 'active'}`} onClick={onClickMode}>
-			<p>EN </p>
-			<p className='arrow'>{origin ? <Right /> : <Left />}</p>
-			<p> RU</p>
-		</div>
-	);
+  return (
+    <div className={`langMode ${isEngMode ? '' : 'active'}`} onClick={onClickMode}>
+      <p>EN </p>
+      <p className="arrow">{isEngMode ? <Right /> : <Left />}</p>
+      <p> RU</p>
+    </div>
+  );
 }
 
 export default LangMode;

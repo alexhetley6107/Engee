@@ -4,39 +4,23 @@ import { useNavigate } from 'react-router-dom';
 
 import { Message, TestSet, Testing } from '../components';
 import ListsProvider from '../providers/ListsProvider';
-import { selectAllLists } from '../redux/slices/lists';
-import { selectTesting, stopTest, startTest } from '../redux/slices/tests';
 
 function TestsPage() {
-  const isTesting = useSelector(selectTesting);
-  const allLists = useSelector(selectAllLists);
+  const { isTesting } = useSelector((st) => st.tests);
+  const { lists } = useSelector((st) => st.lists);
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const handleStart = (words) => {
-    dispatch(startTest(words));
-  };
-  const handleStop = () => {
-    dispatch(stopTest());
-  };
 
   return (
     <ListsProvider>
-      {allLists?.length !== 0 ? (
+      {lists?.length !== 0 ? (
         isTesting ? (
-          <Testing stop={handleStop} />
+          <Testing />
         ) : (
-          <TestSet start={handleStart} />
+          <TestSet />
         )
       ) : (
-        <Message
-          icon={false}
-          title="No lists"
-          btn="lists"
-          onClick={() => navigate('/lists')}
-          sideFunc={undefined}
-        >
+        <Message icon={false} title="No lists" btn="lists" onClick={() => navigate('/lists')}>
           Create your own lists or get default
         </Message>
       )}

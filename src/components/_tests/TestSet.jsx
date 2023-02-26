@@ -1,31 +1,33 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { LangMode, PopUp, IconList } from './../index';
-import { selectAllLists } from './../../redux/slices/lists';
-import { chooseAllTestLists, selectTestLists, toggleTestList } from './../../redux/slices/tests';
-import getSessionWords from '../../utils/getSessionWords';
+import { LangMode, PopUp, IconList, MyBtn } from './../index';
+import { chooseAllTestLists, startTesting, toggleTestList } from './../../redux/slices/tests';
 
-function TestSet({ start }) {
-  const allLists = useSelector(selectAllLists);
-  const testLists = useSelector(selectTestLists);
+function TestSet() {
+  const dispatch = useDispatch();
+  const { lists } = useSelector((st) => st.lists);
+  const { testLists, isLoading } = useSelector((st) => st.tests);
 
   const [isAlert, setAlert] = useState(false);
 
-  const dispatch = useDispatch();
-
   const onClickStart = () => {
-    const words = getSessionWords(testLists, allLists);
-    if (words.length !== 0) {
-      start(words);
+    const wordsAmount = lists
+      .filter((l) => testLists.includes(l._id))
+      .map((l) => l.words.length)
+      .reduce((sum, a) => sum + a, 0);
+
+    if (wordsAmount > 0) {
+      const listIds = JSON.stringify(testLists);
+      dispatch(startTesting(listIds));
     } else {
       setAlert(true);
     }
   };
 
   const chooseAll = () => {
-    const names = allLists?.map((item) => item.name);
-    dispatch(chooseAllTestLists(names));
+    const listIds = lists?.map((item) => item._id);
+    dispatch(chooseAllTestLists(listIds));
   };
 
   return (
@@ -34,7 +36,7 @@ function TestSet({ start }) {
         <div className="learn_head">
           <div className="learn_desc">Choose lists for testing</div>
           <button
-            disabled={testLists?.length === allLists?.length}
+            disabled={testLists?.length === lists?.length}
             className="learn_allBtn btn onBlack"
             onClick={chooseAll}
           >
@@ -42,19 +44,20 @@ function TestSet({ start }) {
           </button>
         </div>
         <div className="learn_items">
-          {allLists?.map((l) => (
+          {lists?.map((l) => (
             <IconList key={l._id} list={l} sessionArray={testLists} toggle={toggleTestList} />
           ))}
         </div>
         <div className="tests_btns">
           <LangMode />
-          <button
+          <MyBtn
             disabled={testLists.length === 0}
-            className="learn_startBtn btn onBlack "
+            className="onBlack"
             onClick={onClickStart}
+            loading={isLoading}
           >
             start
-          </button>
+          </MyBtn>
         </div>
       </div>
 

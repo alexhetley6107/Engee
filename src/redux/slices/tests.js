@@ -1,54 +1,79 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getFromLS, saveToLS } from '../../utils/localStorage';
+import axiosBase from '../../utils/axiosBase';
 
 const initialState = {
-	isTesting: false,
-	originMode: true,
-	testLists: getFromLS('testLists', []),
-	testWords: [],
-	questWord: null,
+  isTesting: false,
+  isEngMode: true,
+  testLists: getFromLS('testLists', []),
+  testWords: [],
+  questWord: null,
+  isLoading: false,
 };
 
+export const startTesting = createAsyncThunk('tests/startTesting', async (listIds) => {
+  try {
+    const { data } = await axiosBase.get(`/word/session/${listIds}`);
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 export const testSlice = createSlice({
-	name: 'tests',
-	initialState,
-	reducers: {
-		startTest(state, action) {
-			state.isTesting = true;
-			state.testWords = action.payload;
-			state.questWord = state.testWords[Math.floor(Math.random() * state.testWords.length)];
-		},
-		stopTest(state) {
-			state.isTesting = false;
-			state.testWords = [];
-		},
-		toggleTestList(state, action) {
-			const list = action.payload;
+  name: 'tests',
+  initialState,
+  reducers: {
+    stopTest(state) {
+      state.isTesting = false;
+      state.testWords = [];
+    },
+    toggleTestList(state, action) {
+      const listId = action.payload;
 
-			if (!state.testLists.includes(list)) {
-				state.testLists = [...state.testLists, list];
-			} else {
-				state.testLists = state.testLists.filter((l) => l !== list);
-			}
+      if (!state.testLists.includes(listId)) {
+        state.testLists = [...state.testLists, listId];
+      } else {
+        state.testLists = state.testLists.filter((lid) => lid !== listId);
+      }
 
-			saveToLS('testLists', state.testLists);
-		},
-		toggleMode(state) {
-			state.originMode = !state.originMode;
-		},
-		chooseAllTestLists(state, action) {
-			state.testLists = action.payload;
+      saveToLS('testLists', state.testLists);
+    },
+    toggleMode(state) {
+      state.isEngMode = !state.isEngMode;
+    },
+    chooseAllTestLists(state, action) {
+      state.testLists = action.payload;
 
-			saveToLS('testLists', state.testLists);
-		},
-		//remove word from test because user correctly translated the word
-		removeTestWord(state, action) {
-			state.testWords = state.testWords.filter((word) => word.eng !== action.payload.eng);
-		},
-		setNewQuestWord(state) {
-			state.questWord = state.testWords[Math.floor(Math.random() * state.testWords.length)];
-		},
-	},
+      saveToLS('testLists', state.testLists);
+    },
+    //remove word from test because user correctly translated the word
+    removeTestWord(state, action) {
+      state.testWords = state.testWords.filter((word) => word.eng !== action.payload.eng);
+    },
+    setNewQuestWord(state) {
+      state.questWord = state.testWords[Math.floor(Math.random() * state.testWords.length)];
+    },
+  },
+  extraReducers: {
+    [startTesting.pending]: (state) => {
+      state.isLoading = true;
+      state.message = null;
+    },
+    [startTesting.fulfilled]: (state, action) => {
+      const { sessionWords } = action.payload;
+      state.isLoading = false;
+      state.testWords = sessionWords;
+      state.questWord = state.testWords[Math.floor(Math.random() * state.testWords.length)];
+      state.isTesting = true;
+    },
+    [startTesting.rejected]: (state, action) => {
+      const { message } = action.payload;
+      state.isLoading = false;
+      state.message = message;
+      state.testWords = [];
+    },
+  },
 });
 
 export const selectTesting = (state) => state.tests.isTesting;
@@ -58,13 +83,12 @@ export const selectTestWords = (state) => state.tests.testWords;
 export const selectQuestWord = (state) => state.tests.questWord;
 
 export const {
-	startTest,
-	stopTest,
-	toggleTestList,
-	toggleMode,
-	chooseAllTestLists,
-	removeTestWord,
-	setNewQuestWord,
+  stopTest,
+  toggleTestList,
+  toggleMode,
+  chooseAllTestLists,
+  removeTestWord,
+  setNewQuestWord,
 } = testSlice.actions;
 
 export default testSlice.reducer;

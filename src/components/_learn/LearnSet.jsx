@@ -7,6 +7,7 @@ function LearnSet() {
   const dispatch = useDispatch();
   const { lists } = useSelector((st) => st.lists);
   const { learnLists, isLoading } = useSelector((st) => st.learn);
+
   const [isAlert, setAlert] = useState(false);
 
   const onClickStart = () => {

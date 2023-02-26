@@ -78,7 +78,7 @@ function AuthPage({ isLogin }) {
         {isLogin ? 'Log In' : 'Sign Up'}
       </MyBtn>
       <p>
-        Already registered?
+        {isLogin ? 'Have no account' : 'Already registered'}?
         <Link to={isLogin ? '/signup' : '/login'}>
           <span> {isLogin ? 'Sign Up' : 'Log In'}</span>
         </Link>
