@@ -51,7 +51,7 @@ function TestSet() {
         <div className="tests_btns">
           <LangMode />
           <MyBtn
-            disabled={testLists.length === 0}
+            disabled={testLists?.length === 0}
             className="onBlack"
             onClick={onClickStart}
             loading={isLoading}

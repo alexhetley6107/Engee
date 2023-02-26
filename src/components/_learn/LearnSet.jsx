@@ -48,7 +48,7 @@ function LearnSet() {
           ))}
         </div>
         <MyBtn
-          disabled={learnLists.length === 0}
+          disabled={learnLists?.length === 0}
           className="onBlack"
           onClick={onClickStart}
           loading={isLoading}

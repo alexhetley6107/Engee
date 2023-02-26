@@ -16,6 +16,7 @@ function Learning() {
 
   const words = useSelector(selectLearnWords);
   const current = useSelector(selectCurrentLearnWord);
+  const { initialWordsAmount } = useSelector((st) => st.learn);
 
   const [isEnd, setEnd] = useState(false);
   const [isStop, setStop] = useState(false);
@@ -69,6 +70,9 @@ function Learning() {
                 <Say />
               </p>
             </div>
+          </div>
+          <div className="session_words_amount">
+            <span>{initialWordsAmount - words.length + 1}</span>/<span>{initialWordsAmount}</span>
           </div>
           <button className="learn_remBtn btn onBlack" onClick={rememberWord}>
             remember

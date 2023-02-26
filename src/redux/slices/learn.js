@@ -7,6 +7,7 @@ const initialState = {
   learnLists: getFromLS('learnLists', []),
   learnWords: [],
   currentLearnWord: null,
+  initialWordsAmount: null,
   isLoading: false,
 };
 
@@ -58,6 +59,7 @@ export const learnSlice = createSlice({
       const { sessionWords } = action.payload;
       state.isLoading = false;
       state.learnWords = sessionWords;
+      state.initialWordsAmount = sessionWords.length;
       state.currentLearnWord =
         state.learnWords[Math.floor(Math.random() * state.learnWords.length)];
       state.isLearning = true;

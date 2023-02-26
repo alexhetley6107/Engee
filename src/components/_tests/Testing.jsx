@@ -20,6 +20,7 @@ function Testing() {
   const words = useSelector(selectTestWords);
   const origin = useSelector(selectMode);
   const quest = useSelector(selectQuestWord);
+  const { initialWordsAmount } = useSelector((st) => st.tests);
 
   const [isEnd, setEnd] = useState(false);
   const [isStop, setStop] = useState(false);
@@ -108,6 +109,10 @@ function Testing() {
               >
                 hint
               </button>
+              <div className="session_words_amount">
+                <span>{initialWordsAmount - words.length + 1}</span>/
+                <span>{initialWordsAmount}</span>
+              </div>
 
               <button className="testing_checkBtn btn onBlack" onClick={checkWord}>
                 check

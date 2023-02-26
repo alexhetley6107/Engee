@@ -7,6 +7,8 @@ const initialState = {
   isEngMode: true,
   testLists: getFromLS('testLists', []),
   testWords: [],
+  initialWordsAmount: null,
+
   questWord: null,
   isLoading: false,
 };
@@ -64,6 +66,8 @@ export const testSlice = createSlice({
       const { sessionWords } = action.payload;
       state.isLoading = false;
       state.testWords = sessionWords;
+      state.initialWordsAmount = sessionWords.length;
+
       state.questWord = state.testWords[Math.floor(Math.random() * state.testWords.length)];
       state.isTesting = true;
     },
