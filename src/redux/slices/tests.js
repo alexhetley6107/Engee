@@ -82,7 +82,7 @@ export const testSlice = createSlice({
 
 export const selectTesting = (state) => state.tests.isTesting;
 export const selectTestLists = (state) => state.tests.testLists;
-export const selectMode = (state) => state.tests.originMode;
+export const selectMode = (state) => state.tests.isEngMode;
 export const selectTestWords = (state) => state.tests.testWords;
 export const selectQuestWord = (state) => state.tests.questWord;
 
