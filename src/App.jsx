@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 
 import './scss/app.scss';
-import { Footer, ScrollTop } from './components';
+import { Footer, Loader, ScrollTop } from './components';
 import { Header } from './components';
 import { FullList, Intro } from './pages';
 import { AuthPage } from './pages';
@@ -18,7 +18,7 @@ function App() {
   const dispatch = useDispatch();
 
   const [isScrollBtn, setScrollBtn] = useState(false);
-  const { user } = useSelector((st) => st.auth);
+  const { user, pageLoading } = useSelector((st) => st.auth);
 
   window.onscroll = () => {
     if (window.pageYOffset > 800) {
@@ -39,28 +39,34 @@ function App() {
 
   return (
     <div className="App">
-      <div className="container">
-        <Header user={user} />
-        <div className="content">
-          {user ? (
-            <Routes>
-              <Route path="/" element={<Greet />} />
-              <Route path="/learn" element={<LearnPage />} />
-              <Route path="/tests" element={<TestsPage />} />
-              <Route path="/lists" element={<ListsPage />} />
-              <Route path="/lists/:id" element={<FullList />} />
-            </Routes>
-          ) : (
-            <Routes>
-              <Route path="/" element={<Intro />} />
-              <Route path="/signup" element={<AuthPage />} />
-              <Route path="/login" element={<AuthPage isLogin />} />
-            </Routes>
-          )}
+      {pageLoading ? (
+        <div className="get_me">
+          <Loader />
         </div>
+      ) : (
+        <div className="container">
+          <Header user={user} />
+          <div className="content">
+            {user ? (
+              <Routes>
+                <Route path="/" element={<Greet />} />
+                <Route path="/learn" element={<LearnPage />} />
+                <Route path="/tests" element={<TestsPage />} />
+                <Route path="/lists" element={<ListsPage />} />
+                <Route path="/lists/:id" element={<FullList />} />
+              </Routes>
+            ) : (
+              <Routes>
+                <Route path="/" element={<Intro />} />
+                <Route path="/signup" element={<AuthPage />} />
+                <Route path="/login" element={<AuthPage isLogin />} />
+              </Routes>
+            )}
+          </div>
 
-        <Footer />
-      </div>
+          <Footer />
+        </div>
+      )}
       {isScrollBtn && <ScrollTop />}
     </div>
   );

@@ -5,6 +5,7 @@ const initialState = {
   user: null,
   token: null,
   isLoading: false,
+  pageLoading: false,
   message: null,
 };
 
@@ -93,19 +94,19 @@ export const authSlice = createSlice({
       state.message = message;
     },
     [getMe.pending]: (state) => {
-      state.isLoading = true;
+      state.pageLoading = true;
       state.message = null;
     },
     [getMe.fulfilled]: (state, action) => {
       const { user, token } = action.payload;
-      state.isLoading = false;
+      state.pageLoading = false;
       state.message = null;
       state.user = user ?? null;
       state.token = token ?? null;
     },
     [getMe.rejected]: (state, action) => {
       const { message } = action.payload;
-      state.isLoading = false;
+      state.pageLoading = false;
       state.message = message;
     },
   },
